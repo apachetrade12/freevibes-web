@@ -548,137 +548,158 @@
     </div>
 
     <script>
-        // Función para generar códigos por categorías
-        function generateCategoryCodes(prefix, start, end) {
-            const codes = [];
-            for (let i = start; i <= end; i++) {
-                codes.push(${prefix}-${String(i).padStart(4, '0')});
-            }
-            return codes;
+    // Función para generar códigos por categorías
+    function generateCategoryCodes(prefix, start, end) {
+        const codes = [];
+        for (let i = start; i <= end; i++) {
+            codes.push(prefix + '-' + String(i).padStart(4, '0'));
+        }
+        return codes;
+    }
+
+    // Base de datos de códigos válidos
+    const validCodes = [
+        'ADMIN-777',  // Código maestro
+        ...generateCategoryCodes('FV-F', 1, 1000),
+        ...generateCategoryCodes('FV-A', 1, 1000),  
+        ...generateCategoryCodes('FV-M', 1, 1000),
+        ...generateCategoryCodes('FV-MT', 1, 1000)
+    ];
+
+    const usedCodes = new Set();
+
+    // Función para obtener parámetros URL
+    function getUrlParameter(name) {
+        const urlParams = new URLSearchParams(window.location.search);
+        return urlParams.get(name);
+    }
+
+    // Autofill desde URL
+    function autoFillFromUrl() {
+        const codeFromUrl = getUrlParameter('code');
+        if (codeFromUrl) {
+            document.getElementById('userCode').value = codeFromUrl.toUpperCase();
+        }
+    }
+
+    // Función principal de validación
+    function validateRegistration() {
+        console.log('🔧 Validando registro...');
+        
+        const code = document.getElementById('userCode').value.trim().toUpperCase();
+        const email = document.getElementById('userEmail').value.trim();
+        const name = document.getElementById('userName').value.trim();
+
+        if (!code) {
+            alert('❌ Por favor ingresa un código');
+            return;
         }
 
-        // Base de datos de códigos válidos por categorías (4000 TOTAL)
-        const validCodes = [
-            // 🔑 Código maestro para el dueño (SOLO CÓDIGO, sin email/nombre)
-            'ADMIN-777',
-            
-            // 🎯 Códigos por categorías (1000 por categoría = 4000 TOTAL)
-            ...generateCategoryCodes('FV-F', 1, 1000),    // Fútbol
-            ...generateCategoryCodes('FV-A', 1, 1000),    // Animales  
-            ...generateCategoryCodes('FV-M', 1, 1000),    // Memes
-            ...generateCategoryCodes('FV-MT', 1, 1000)    // Motivacional
-        ];
-
-        const usedCodes = new Set();
-
-        function validateRegistration() {
-            const code = document.getElementById('userCode').value.trim().toUpperCase();
-            const email = document.getElementById('userEmail').value.trim();
-            const name = document.getElementById('userName').value.trim();
-
-            if (!code) {
-                alert('❌ Por favor ingresa un código');
-                return;
-            }
-
-            // 🔑 ACCESO MAESTRO - Sin validaciones estrictas
-            if (code === 'ADMIN-777') {
-                localStorage.setItem('freevibes_user', JSON.stringify({
-                    code: code,
-                    email: email || 'admin@freevibes.com',
-                    name: name || 'Administrador',
-                    joined: new Date().toISOString(),
-                    isAdmin: true
-                }));
-                showMainContent();
-                return;
-            }
-
-            // Validación normal para códigos de vasos
-            if (!email || !name) {
-                alert('❌ Para códigos de vasos, completa email y nombre');
-                return;
-            }
-
-            if (!validCodes.includes(code)) {
-                alert('❌ Código inválido. Verifica el código de tu vaso.');
-                return;
-            }
-
-            if (usedCodes.has(code)) {
-                alert('❌ Este código ya ha sido registrado. Cada vaso tiene un código único.');
-                return;
-            }
-
-            // Registro exitoso para usuario normal
-            usedCodes.add(code);
+        // ACCESO MAESTRO
+        if (code === 'ADMIN-777') {
+            console.log('✅ Acceso maestro aprobado');
             localStorage.setItem('freevibes_user', JSON.stringify({
                 code: code,
-                email: email,
-                name: name,
+                email: email || 'admin@freevibes.com',
+                name: name || 'Administrador',
                 joined: new Date().toISOString(),
-                isAdmin: false
+                isAdmin: true
             }));
-
             showMainContent();
+            return;
         }
 
-        function showMainContent() {
-            document.getElementById('loginModal').style.opacity = '0';
-            setTimeout(() => {
-                document.getElementById('loginModal').style.display = 'none';
-                document.body.classList.remove('modal-open');
-                document.getElementById('mainContent').classList.add('visible');
-                
-                // Actualizar bienvenida personalizada
-                const user = JSON.parse(localStorage.getItem('freevibes_user'));
-                if (user) {
-                    document.querySelector('.hero h1').textContent = ¡Bienvenido ${user.name}!;
-                }
-            }, 300);
+        // Validación para códigos normales
+        if (!email || !name) {
+            alert('❌ Para códigos de vasos, completa email y nombre');
+            return;
         }
 
-        function closeLogin() {
-            document.getElementById('loginModal').style.opacity = '0';
-            setTimeout(() => {
-                document.getElementById('loginModal').style.display = 'none';
-                document.body.classList.remove('modal-open');
-            }, 300);
+        if (!validCodes.includes(code)) {
+            alert('❌ Código inválido. Verifica el código de tu vaso.');
+            return;
         }
 
-        function logout() {
-            if (confirm('¿Estás seguro de que quieres cerrar sesión?')) {
-                localStorage.removeItem('freevibes_user');
-                document.getElementById('mainContent').classList.remove('visible');
-                document.getElementById('loginModal').style.display = 'flex';
-                setTimeout(() => {
-                    document.getElementById('loginModal').style.opacity = '1';
-                    document.body.classList.add('modal-open');
-                }, 50);
-                
-                // Limpiar formulario
-                document.getElementById('userCode').value = '';
-                document.getElementById('userEmail').value = '';
-                document.getElementById('userName').value = '';
+        if (usedCodes.has(code)) {
+            alert('❌ Este código ya ha sido registrado.');
+            return;
+        }
+
+        // Registro exitoso
+        usedCodes.add(code);
+        localStorage.setItem('freevibes_user', JSON.stringify({
+            code: code,
+            email: email,
+            name: name,
+            joined: new Date().toISOString(),
+            isAdmin: false
+        }));
+
+        showMainContent();
+    }
+
+    function showMainContent() {
+        console.log('🎉 Mostrando contenido principal');
+        document.getElementById('loginModal').style.opacity = '0';
+        setTimeout(function() {
+            document.getElementById('loginModal').style.display = 'none';
+            document.body.classList.remove('modal-open');
+            document.getElementById('mainContent').classList.add('visible');
+            
+            // Actualizar bienvenida
+            const user = JSON.parse(localStorage.getItem('freevibes_user'));
+            if (user && user.name) {
+                document.querySelector('.hero h1').textContent = '¡Bienvenido ' + user.name + '!';
             }
-        }
+        }, 300);
+    }
 
-        // Verificar si ya está logueado al cargar
-        document.addEventListener('DOMContentLoaded', function() {
-            const user = localStorage.getItem('freevibes_user');
-            if (user) {
-                showMainContent();
-            } else {
+    function closeLogin() {
+        document.getElementById('loginModal').style.opacity = '0';
+        setTimeout(function() {
+            document.getElementById('loginModal').style.display = 'none';
+            document.body.classList.remove('modal-open');
+        }, 300);
+    }
+
+    function logout() {
+        if (confirm('¿Estás seguro de que quieres cerrar sesión?')) {
+            localStorage.removeItem('freevibes_user');
+            document.getElementById('mainContent').classList.remove('visible');
+            document.getElementById('loginModal').style.display = 'flex';
+            setTimeout(function() {
+                document.getElementById('loginModal').style.opacity = '1';
                 document.body.classList.add('modal-open');
-            }
-        });
+            }, 50);
+            
+            // Limpiar formulario
+            document.getElementById('userCode').value = '';
+            document.getElementById('userEmail').value = '';
+            document.getElementById('userName').value = '';
+        }
+    }
 
-        // Prevenir que el modal se cierre haciendo clic fuera
-        document.getElementById('loginModal').addEventListener('click', function(e) {
-            if (e.target === this) {
-                // Mantener modal abierto
-            }
-        });
-    </script>
+    // Inicialización
+    document.addEventListener('DOMContentLoaded', function() {
+        console.log('🚀 Página cargada - FreeVibes iniciado');
+        
+        const user = localStorage.getItem('freevibes_user');
+        if (user) {
+            console.log('👤 Usuario ya logueado');
+            showMainContent();
+        } else {
+            console.log('🔐 Mostrando modal de login');
+            document.body.classList.add('modal-open');
+            autoFillFromUrl();
+        }
+    });
+
+    // Prevenir cierre del modal
+    document.getElementById('loginModal').addEventListener('click', function(e) {
+        if (e.target === this) {
+            // No hacer nada - mantener modal abierto
+        }
+    });
+</script>
 </body>
 </html>
