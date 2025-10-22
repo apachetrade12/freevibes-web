@@ -446,12 +446,12 @@
             
             <div class="modal-content">
                 <h2>🔐 FREEVIBES</h2>
-                <p>Regístrate con el código de tu vaso para acceder a la comunidad</p>
+                <p>Ingresa el código único de tu vaso para acceder a la comunidad</p>
                 
                 <div class="input-group">
-                    <input type="text" id="userCode" placeholder="Código de tu vaso (Ej: FV-001)" maxlength="20" required>
-                    <input type="email" id="userEmail" placeholder="Tu email principal" required>
-                    <input type="text" id="userName" placeholder="¿Cómo te llamas?" required>
+                    <input type="text" id="userCode" placeholder="Código de tu vaso (Ej: FV-F-0001)" maxlength="20" required>
+                    <input type="email" id="userEmail" placeholder="Tu email principal (opcional para admin)">
+                    <input type="text" id="userName" placeholder="¿Cómo te llamas? (opcional para admin)">
                     <button class="access-btn" onclick="validateRegistration()">🎯 UNIRME A LA COMUNIDAD</button>
                 </div>
                 
@@ -548,22 +548,75 @@
     </div>
 
     <script>
-        // Base de datos de códigos válidos (luego migrar a Google Sheets)
+        // Función para generar códigos por categorías
+        function generateCategoryCodes(prefix, start, end) {
+            const codes = [];
+            for (let i = start; i <= end; i++) {
+                codes.push(${prefix}-${String(i).padStart(4, '0')});
+            }
+            return codes;
+        }
+
+        // Base de datos de códigos válidos por categorías (4000 TOTAL)
         const validCodes = [
-            'FV-001', 'FV-002', 'FV-003', 'FV-004', 'FV-005',
-            'FV-006', 'FV-007', 'FV-008', 'FV-009', 'FV-010',
-            'FV-011', 'FV-012', 'FV-013', 'FV-014', 'FV-015'
+            // 🔑 Código maestro para el dueño (SOLO CÓDIGO, sin email/nombre)
+            'ADMIN-777',
+            
+            // 🎯 Códigos por categorías (1000 por categoría = 4000 TOTAL)
+            ...generateCategoryCodes('FV-F', 1, 1000),    // Fútbol
+            ...generateCategoryCodes('FV-A', 1, 1000),    // Animales  
+            ...generateCategoryCodes('FV-M', 1, 1000),    // Memes
+            ...generateCategoryCodes('FV-MT', 1, 1000)    // Motivacional
         ];
 
         const usedCodes = new Set();
+
+        // Función para obtener parámetros de la URL
+        function getUrlParameter(name) {
+            name = name.replace(/[\[\]]/g, '\\$&');
+            const regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)');
+            const results = regex.exec(window.location.href);
+            if (!results) return null;
+            if (!results[2]) return '';
+            return decodeURIComponent(results[2].replace(/\+/g, ' '));
+        }
+
+        // Autofill desde URL al cargar la página
+        function autoFillFromUrl() {
+            const codeFromUrl = getUrlParameter('code');
+            if (codeFromUrl) {
+                document.getElementById('userCode').value = codeFromUrl.toUpperCase();
+                // Opcional: focus al siguiente campo
+                document.getElementById('userEmail').focus();
+            }
+        }
 
         function validateRegistration() {
             const code = document.getElementById('userCode').value.trim().toUpperCase();
             const email = document.getElementById('userEmail').value.trim();
             const name = document.getElementById('userName').value.trim();
 
-            if (!code || !email || !name) {
-                alert('❌ Por favor completa todos los campos');
+            if (!code) {
+                alert('❌ Por favor ingresa un código');
+                return;
+            }
+
+            // 🔑 ACCESO MAESTRO - Sin validaciones estrictas
+            if (code === 'ADMIN-777') {
+                localStorage.setItem('freevibes_user', JSON.stringify({
+                    code: code,
+                    email: email || 'admin@freevibes.com',
+                    name: name || 'Administrador',
+                    joined: new Date().toISOString(),
+                    isAdmin: true
+                }));
+                showMainContent();
+                return;
+            }
+
+            // Validación normal para códigos de vasos
+            if (!email || !name) {
+                alert('❌ Para códigos de vasos, completa email y nombre');
                 return;
             }
 
@@ -577,13 +630,14 @@
                 return;
             }
 
-            // Registro exitoso
+            // Registro exitoso para usuario normal
             usedCodes.add(code);
             localStorage.setItem('freevibes_user', JSON.stringify({
                 code: code,
                 email: email,
                 name: name,
-                joined: new Date().toISOString()
+                joined: new Date().toISOString(),
+                isAdmin: false
             }));
 
             showMainContent();
@@ -636,6 +690,8 @@
                 showMainContent();
             } else {
                 document.body.classList.add('modal-open');
+                // Auto-fill desde URL si existe parámetro code
+                autoFillFromUrl();
             }
         });
 
