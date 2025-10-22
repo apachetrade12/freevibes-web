@@ -613,15 +613,29 @@
     }
 
     function showMainContent() {
-        document.getElementById('loginModal').style.display = 'none';
-        document.getElementById('mainContent').style.display = 'block';
-        
-        // Actualizar bienvenida
-        var user = JSON.parse(localStorage.getItem('freevibes_user'));
-        if (user && user.name) {
-            document.querySelector('.hero h1').textContent = 'Bienvenido ' + user.name;
+    console.log('🎉 Mostrando contenido principal...');
+    
+    // Ocultar modal
+    document.getElementById('loginModal').style.display = 'none';
+    document.body.classList.remove('modal-open');
+    
+    // Mostrar contenido principal CON TODOS LOS ESTILOS
+    var mainContent = document.getElementById('mainContent');
+    mainContent.style.display = 'block';
+    mainContent.style.opacity = '1';
+    mainContent.classList.add('visible');
+    
+    // Actualizar bienvenida
+    var user = JSON.parse(localStorage.getItem('freevibes_user'));
+    if (user && user.name) {
+        var title = document.querySelector('.hero h1');
+        if (title) {
+            title.textContent = '¡Bienvenido ' + user.name + '!';
         }
     }
+    
+    console.log('✅ Contenido principal visible');
+}
 
     function closeLogin() {
         document.getElementById('loginModal').style.display = 'none';
