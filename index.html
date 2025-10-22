@@ -571,26 +571,6 @@
 
         const usedCodes = new Set();
 
-        // Función para obtener parámetros de la URL
-        function getUrlParameter(name) {
-            name = name.replace(/[\[\]]/g, '\\$&');
-            const regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)');
-            const results = regex.exec(window.location.href);
-            if (!results) return null;
-            if (!results[2]) return '';
-            return decodeURIComponent(results[2].replace(/\+/g, ' '));
-        }
-
-        // Autofill desde URL al cargar la página
-        function autoFillFromUrl() {
-            const codeFromUrl = getUrlParameter('code');
-            if (codeFromUrl) {
-                document.getElementById('userCode').value = codeFromUrl.toUpperCase();
-                // Opcional: focus al siguiente campo
-                document.getElementById('userEmail').focus();
-            }
-        }
-
         function validateRegistration() {
             const code = document.getElementById('userCode').value.trim().toUpperCase();
             const email = document.getElementById('userEmail').value.trim();
@@ -690,16 +670,13 @@
                 showMainContent();
             } else {
                 document.body.classList.add('modal-open');
-                // Auto-fill desde URL si existe parámetro code
-                autoFillFromUrl();
             }
         });
 
         // Prevenir que el modal se cierre haciendo clic fuera
         document.getElementById('loginModal').addEventListener('click', function(e) {
             if (e.target === this) {
-                // Opcional: descomenta si quieres que se cierre al hacer clic fuera
-                // closeLogin();
+                // Mantener modal abierto
             }
         });
     </script>
