@@ -548,62 +548,37 @@
     </div>
 
     <script>
-    // Función para generar códigos por categorías
-    function generateCategoryCodes(prefix, start, end) {
-        const codes = [];
-        for (let i = start; i <= end; i++) {
-            codes.push(prefix + '-' + String(i).padStart(4, '0'));
-        }
-        return codes;
-    }
-
     // Base de datos de códigos válidos
-    const validCodes = [
-        'ADMIN-777',  // Código maestro
-        ...generateCategoryCodes('FV-F', 1, 1000),
-        ...generateCategoryCodes('FV-A', 1, 1000),  
-        ...generateCategoryCodes('FV-M', 1, 1000),
-        ...generateCategoryCodes('FV-MT', 1, 1000)
-    ];
+    const validCodes = ['ADMIN-777'];
+    
+    // Generar códigos para cada categoría
+    for (let i = 1; i <= 1000; i++) {
+        validCodes.push('FV-F-' + String(i).padStart(4, '0'));
+        validCodes.push('FV-A-' + String(i).padStart(4, '0'));
+        validCodes.push('FV-M-' + String(i).padStart(4, '0'));
+        validCodes.push('FV-MT-' + String(i).padStart(4, '0'));
+    }
 
     const usedCodes = new Set();
 
-    // Función para obtener parámetros URL
-    function getUrlParameter(name) {
-        const urlParams = new URLSearchParams(window.location.search);
-        return urlParams.get(name);
-    }
-
-    // Autofill desde URL
-    function autoFillFromUrl() {
-        const codeFromUrl = getUrlParameter('code');
-        if (codeFromUrl) {
-            document.getElementById('userCode').value = codeFromUrl.toUpperCase();
-        }
-    }
-
     // Función principal de validación
     function validateRegistration() {
-        console.log('🔧 Validando registro...');
-        
-        const code = document.getElementById('userCode').value.trim().toUpperCase();
-        const email = document.getElementById('userEmail').value.trim();
-        const name = document.getElementById('userName').value.trim();
+        var code = document.getElementById('userCode').value.trim().toUpperCase();
+        var email = document.getElementById('userEmail').value.trim();
+        var name = document.getElementById('userName').value.trim();
 
         if (!code) {
-            alert('❌ Por favor ingresa un código');
+            alert('Por favor ingresa un código');
             return;
         }
 
         // ACCESO MAESTRO
         if (code === 'ADMIN-777') {
-            console.log('✅ Acceso maestro aprobado');
             localStorage.setItem('freevibes_user', JSON.stringify({
                 code: code,
                 email: email || 'admin@freevibes.com',
                 name: name || 'Administrador',
-                joined: new Date().toISOString(),
-                isAdmin: true
+                joined: new Date().toISOString()
             }));
             showMainContent();
             return;
@@ -611,17 +586,17 @@
 
         // Validación para códigos normales
         if (!email || !name) {
-            alert('❌ Para códigos de vasos, completa email y nombre');
+            alert('Para códigos de vasos, completa email y nombre');
             return;
         }
 
         if (!validCodes.includes(code)) {
-            alert('❌ Código inválido. Verifica el código de tu vaso.');
+            alert('Código inválido. Verifica el código de tu vaso.');
             return;
         }
 
         if (usedCodes.has(code)) {
-            alert('❌ Este código ya ha sido registrado.');
+            alert('Este código ya ha sido registrado.');
             return;
         }
 
@@ -631,48 +606,32 @@
             code: code,
             email: email,
             name: name,
-            joined: new Date().toISOString(),
-            isAdmin: false
+            joined: new Date().toISOString()
         }));
 
         showMainContent();
     }
 
     function showMainContent() {
-        console.log('🎉 Mostrando contenido principal');
-        document.getElementById('loginModal').style.opacity = '0';
-        setTimeout(function() {
-            document.getElementById('loginModal').style.display = 'none';
-            document.body.classList.remove('modal-open');
-            document.getElementById('mainContent').classList.add('visible');
-            
-            // Actualizar bienvenida
-            const user = JSON.parse(localStorage.getItem('freevibes_user'));
-            if (user && user.name) {
-                document.querySelector('.hero h1').textContent = '¡Bienvenido ' + user.name + '!';
-            }
-        }, 300);
+        document.getElementById('loginModal').style.display = 'none';
+        document.getElementById('mainContent').style.display = 'block';
+        
+        // Actualizar bienvenida
+        var user = JSON.parse(localStorage.getItem('freevibes_user'));
+        if (user && user.name) {
+            document.querySelector('.hero h1').textContent = 'Bienvenido ' + user.name;
+        }
     }
 
     function closeLogin() {
-        document.getElementById('loginModal').style.opacity = '0';
-        setTimeout(function() {
-            document.getElementById('loginModal').style.display = 'none';
-            document.body.classList.remove('modal-open');
-        }, 300);
+        document.getElementById('loginModal').style.display = 'none';
     }
 
     function logout() {
-        if (confirm('¿Estás seguro de que quieres cerrar sesión?')) {
+        if (confirm('¿Cerrar sesión?')) {
             localStorage.removeItem('freevibes_user');
-            document.getElementById('mainContent').classList.remove('visible');
+            document.getElementById('mainContent').style.display = 'none';
             document.getElementById('loginModal').style.display = 'flex';
-            setTimeout(function() {
-                document.getElementById('loginModal').style.opacity = '1';
-                document.body.classList.add('modal-open');
-            }, 50);
-            
-            // Limpiar formulario
             document.getElementById('userCode').value = '';
             document.getElementById('userEmail').value = '';
             document.getElementById('userName').value = '';
@@ -681,23 +640,9 @@
 
     // Inicialización
     document.addEventListener('DOMContentLoaded', function() {
-        console.log('🚀 Página cargada - FreeVibes iniciado');
-        
-        const user = localStorage.getItem('freevibes_user');
+        var user = localStorage.getItem('freevibes_user');
         if (user) {
-            console.log('👤 Usuario ya logueado');
             showMainContent();
-        } else {
-            console.log('🔐 Mostrando modal de login');
-            document.body.classList.add('modal-open');
-            autoFillFromUrl();
-        }
-    });
-
-    // Prevenir cierre del modal
-    document.getElementById('loginModal').addEventListener('click', function(e) {
-        if (e.target === this) {
-            // No hacer nada - mantener modal abierto
         }
     });
 </script>
