@@ -677,7 +677,8 @@ function validarCodigo(code) {
         /^FV-S-\d{4}$/      // FV-S-0001 a FV-S-1000
     ];
     
-    return code === 'ADMIN-777' || patrones.some(patron => patron.test(code));
+    const codigoMayusculas = code.toUpperCase();
+    return codigoMayusculas === 'ADMIN-777' || patrones.some(patron => patron.test(codigoMayusculas));
 }
         
         const tabs = document.querySelectorAll('.tab');
