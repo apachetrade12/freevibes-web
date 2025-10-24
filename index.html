@@ -666,7 +666,9 @@
         </div>
     </div>
 
-        <script>
+                    }
+        }
+    <script>
        // SISTEMA INTELIGENTE DE CÓDIGOS
 function validarCodigo(code) {
     const patrones = [
@@ -707,7 +709,7 @@ function validarCodigo(code) {
         // Registro - SUPER SIMPLE
         registerForm.addEventListener('submit', function(e) {
             e.preventDefault();
-            const code = document.getElementById('register-code').value;
+            const code = document.getElementById('register-code').value.toUpperCase(); // ← AGREGAR .toUpperCase() AQUÍ
             
             if (validarCodigo(code))  {
                 // ACCESO DIRECTO - SIN COMPLICACIONES
@@ -772,6 +774,6 @@ function validarCodigo(code) {
         document.addEventListener('DOMContentLoaded', function() {
             document.querySelector('[data-tab="register"]').click();
         });
-        </script>
+    </script>
 </body>
 </html>
