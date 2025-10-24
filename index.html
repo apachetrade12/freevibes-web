@@ -557,7 +557,7 @@
     const userGreeting = document.getElementById('user-greeting');
     const tribeBadge = document.getElementById('tribe-badge');
 
-    // Tab switching
+    // Tab switching - ESTE CÓDIGO ESTÁ BIEN
     tabs.forEach(tab => {
         tab.addEventListener('click', () => {
             tabs.forEach(t => t.classList.remove('active'));
@@ -573,14 +573,13 @@
         });
     });
 
-    // Form validation and submission - REGISTRO
+    // REGISTRO - CORREGIDO
     registerForm.addEventListener('submit', function(e) {
         e.preventDefault();
         const code = document.getElementById('register-code').value;
         const email = document.getElementById('register-email').value;
         const password = document.getElementById('register-password').value;
         
-        // Validar código - CON ACCESO DIRECTO PARA ADMIN-777
         if (!codigosValidos.includes(code)) {
             document.getElementById('code-error').classList.add('show');
             return;
@@ -588,11 +587,9 @@
         
         document.getElementById('code-error').classList.remove('show');
         
-        // Si es ADMIN-777, acceso directo sin guardar datos
         if (code === 'ADMIN-777') {
             loginUser('CREADOR FREEVIBES', code);
         } else {
-            // Para códigos normales, guardar datos
             localStorage.setItem('freevibes_user', JSON.stringify({
                 email: email,
                 code: code,
@@ -602,13 +599,12 @@
         }
     });
 
-    // LOGIN
+    // LOGIN - CORREGIDO  
     loginForm.addEventListener('submit', function(e) {
         e.preventDefault();
         const email = document.getElementById('login-email').value;
         const password = document.getElementById('login-password').value;
         
-        // Verificar credenciales guardadas
         const savedUser = localStorage.getItem('freevibes_user');
         if (savedUser) {
             const userData = JSON.parse(savedUser);
@@ -622,30 +618,23 @@
     });
 
     function loginUser(email, code) {
-        // Determine tribe based on code - CON LLAVE MAESTRA ESPECIAL
-        let tribe = "Superación";
         let badgeText = "";
         
         if (code === 'ADMIN-777') {
-            tribe = "FUNDADOR";
             badgeText = "🌟 CREADOR FREEVIBES 🌟";
         } else if (code.startsWith('FV-A-')) {
-            tribe = "Animales";
             badgeText = "Eres parte de la Manada FREEVIBES";
         } else if (code.startsWith('FV-F-')) {
-            tribe = "Fútbol";
             badgeText = "Eres parte del Equipo FREEVIBES";
         } else if (code.startsWith('FV-MM-')) {
-            tribe = "Memes";
             badgeText = "Eres parte de los Memes FREEVIBES";
         } else if (code.startsWith('FV-C100-')) {
-            tribe = "FUTUROS VIP";
             badgeText = "🎉 CLIENTE FUNDADOR - VIP FUTURO 🎉";
         } else {
             badgeText = "Eres parte de la Tribu Superación";
         }
         
-        userGreeting.textContent = Hola, ${email};
+        userGreeting.textContent = 'Hola, ' + email;
         tribeBadge.textContent = badgeText;
         showPage('dashboard-page');
     }
@@ -656,7 +645,6 @@
         loginForm.reset();
     });
 
-    // Page navigation
     function showPage(pageId) {
         document.querySelectorAll('.page').forEach(page => {
             page.classList.remove('active');
@@ -664,14 +652,11 @@
         document.getElementById(pageId).classList.add('active');
     }
 
-    // Download function (simulated)
     function downloadFile(filename) {
-        alert(Descargando: ${filename}\nEn una implementación real, esto descargaría el archivo PDF.);
+        alert('Descargando: ' + filename + '\nEn una implementación real, esto descargaría el archivo PDF.');
     }
 
-    // Initialize
     document.addEventListener('DOMContentLoaded', function() {
-        // Set up tab functionality
         document.querySelector('[data-tab="register"]').click();
     });
 </script>
