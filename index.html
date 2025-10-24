@@ -573,32 +573,40 @@
         });
     });
 
-    // REGISTRO - CORREGIDO
+    // REGISTRO - SOLUCIÓN DEFINITIVA
 registerForm.addEventListener('submit', function(e) {
     e.preventDefault();
     const code = document.getElementById('register-code').value;
-    const email = document.getElementById('register-email').value;
-    const password = document.getElementById('register-password').value;
-
+    
+    // SOLO validar el código, ignorar todo lo demás
     if (!codigosValidos.includes(code)) {
         document.getElementById('code-error').classList.add('show');
         return;
     }
     
     document.getElementById('code-error').classList.remove('show');
-
+    
+    // ADMIN-777 entra DIRECTO
     if (code === 'ADMIN-777') {
-    // Acceso directo sin verificar email/contraseña
-    loginUser('CREADOR@FREEVIBES.COM', code);
-    return;  // ← ESTA LÍNEA NUEVA - EVITA QUE PIDA EMAIL/CONTRASEÑA
-} else {
-        localStorage.setItem('freevibes_user', JSON.stringify({
-            email: email,
-            code: code,
-            password: password
-        }));
-        loginUser(email, code);
+        loginUser('CREADOR FREEVIBES', code);
+        return;
     }
+    
+    // Para otros códigos, sí pedir email/contraseña
+    const email = document.getElementById('register-email').value;
+    const password = document.getElementById('register-password').value;
+    
+    if (!email || !password) {
+        alert('Para códigos normales, necesitás email y contraseña');
+        return;
+    }
+    
+    localStorage.setItem('freevibes_user', JSON.stringify({
+        email: email,
+        code: code,
+        password: password
+    }));
+    loginUser(email, code);
 });
 
     // LOGIN - CORREGIDO  
