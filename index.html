@@ -667,8 +667,18 @@
     </div>
 
     <script>
-        // CÓDIGO SIMPLIFICADO Y 100% FUNCIONAL
-        const codigosValidos = ['ADMIN-777'];
+       // SISTEMA INTELIGENTE DE CÓDIGOS
+function validarCodigo(code) {
+    const patrones = [
+        /^FV-C100-\d{3}$/,  // FV-C100-001 a FV-C100-100
+        /^FV-F-\d{4}$/,     // FV-F-0001 a FV-F-1000  
+        /^FV-A-\d{4}$/,     // FV-A-0001 a FV-A-1000
+        /^FV-M-\d{4}$/,     // FV-M-0001 a FV-M-1000
+        /^FV-S-\d{4}$/      // FV-S-0001 a FV-S-1000
+    ];
+    
+    return code === 'ADMIN-777' || patrones.some(patron => patron.test(code));
+}
         
         const tabs = document.querySelectorAll('.tab');
         const registerForm = document.getElementById('register-form');
@@ -698,7 +708,7 @@
             e.preventDefault();
             const code = document.getElementById('register-code').value;
             
-            if (codigosValidos.includes(code)) {
+            if (validarCodigo(code))  {
                 // ACCESO DIRECTO - SIN COMPLICACIONES
                 userGreeting.textContent = 'BIENVENIDO, CREADOR';
                 tribeBadge.textContent = '🌟 FUNDADOR FREEVIBES 🌟';
