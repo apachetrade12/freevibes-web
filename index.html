@@ -588,7 +588,8 @@
         document.getElementById('code-error').classList.remove('show');
         
         if (code === 'ADMIN-777') {
-            loginUser('CREADOR FREEVIBES', code);
+    // Acceso directo sin verificar email/contraseña
+    loginUser('CREADOR@FREEVIBES.COM', code);
         } else {
             localStorage.setItem('freevibes_user', JSON.stringify({
                 email: email,
