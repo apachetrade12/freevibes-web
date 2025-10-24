@@ -3,759 +3,651 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FreeVibes | Comunidad Exclusiva</title>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    <title>FREEVIBES - De los fragmentos, creamos tu futuro</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --primary-color: #064e3b;
+            --primary-dark: #043a2d;
+            --secondary-color: #10b981;
+            --text-light: #f8fafc;
+            --text-gray: #94a3b8;
+            --card-bg: rgba(255, 255, 255, 0.95);
+            --border-radius: 12px;
+            --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-        
+
         body {
-            font-family: 'Space Grotesk', sans-serif;
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--primary-color);
+            color: var(--text-light);
             line-height: 1.6;
-            color: #1a1a1a;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
-            overflow-x: hidden;
         }
 
-        body.modal-open {
-            overflow: hidden;
-        }
-        
         .container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 0 20px;
         }
-        
-        /* Header */
+
+        /* Header Styles */
         header {
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(6, 78, 59, 0.9);
             backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 1rem 0;
             position: sticky;
             top: 0;
             z-index: 100;
         }
-        
-        .navbar {
+
+        .header-content {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 20px 0;
         }
-        
+
         .logo {
-            font-family: 'Playfair Display', serif;
-            font-size: 2.5rem;
+            font-size: 1.8rem;
             font-weight: 700;
-            color: white;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
-        }
-        
-        .logo span {
-            color: #ff6b6b;
-        }
-        
-        .nav-links {
-            display: flex;
-            gap: 25px;
-        }
-        
-        .nav-links a {
-            text-decoration: none;
-            color: white;
-            font-weight: 500;
-            padding: 8px 16px;
-            border-radius: 25px;
-            transition: all 0.3s;
-        }
-        
-        .nav-links a:hover {
-            background: rgba(255, 255, 255, 0.2);
-            transform: translateY(-2px);
+            color: var(--text-light);
         }
 
-        /* Modal de Registro */
-        .modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.8);
-            backdrop-filter: blur(20px);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-            opacity: 1;
-            transition: opacity 0.3s ease;
-        }
-
-        .modal-glass {
-            background: rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 25px;
-            padding: 40px;
-            width: 90%;
-            max-width: 500px;
-            position: relative;
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
-            animation: modalAppear 0.5s ease-out;
-        }
-
-        @keyframes modalAppear {
-            from {
-                opacity: 0;
-                transform: scale(0.8) translateY(-20px);
-            }
-            to {
-                opacity: 1;
-                transform: scale(1) translateY(0);
-            }
-        }
-
-        .close-modal {
-            position: absolute;
-            top: 20px;
-            right: 25px;
-            background: none;
-            border: none;
-            color: white;
-            font-size: 2rem;
-            cursor: pointer;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s;
-        }
-
-        .close-modal:hover {
-            background: rgba(255, 255, 255, 0.2);
-            transform: rotate(90deg);
-        }
-
-        .modal-content {
-            text-align: center;
-            color: white;
-        }
-
-        .modal-content h2 {
-            font-family: 'Playfair Display', serif;
-            font-size: 2.5rem;
-            margin-bottom: 10px;
-            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .modal-content p {
-            margin-bottom: 30px;
-            opacity: 0.9;
-            font-size: 1.1rem;
-        }
-
-        .input-group {
-            margin-bottom: 25px;
-        }
-
-        .input-group input {
-            width: 100%;
-            padding: 18px 20px;
-            border: 2px solid rgba(255, 255, 255, 0.3);
-            border-radius: 15px;
-            background: rgba(255, 255, 255, 0.1);
-            color: white;
-            font-size: 1rem;
-            font-family: 'Space Grotesk', sans-serif;
-            margin-bottom: 20px;
-            transition: all 0.3s;
-            backdrop-filter: blur(10px);
-        }
-
-        .input-group input::placeholder {
-            color: rgba(255, 255, 255, 0.6);
-        }
-
-        .input-group input:focus {
-            outline: none;
-            border-color: #ff6b6b;
-            background: rgba(255, 255, 255, 0.15);
-            box-shadow: 0 0 0 3px rgba(255, 107, 107, 0.3);
-        }
-
-        .access-btn {
-            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
-            color: white;
-            border: none;
-            padding: 18px 40px;
-            border-radius: 50px;
-            font-size: 1.2rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-            width: 100%;
-            box-shadow: 0 8px 25px rgba(255, 107, 107, 0.4);
-        }
-
-        .access-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 12px 30px rgba(255, 107, 107, 0.6);
-        }
-
-        .modal-footer {
-            margin-top: 25px;
-            padding-top: 20px;
-            border-top: 1px solid rgba(255, 255, 255, 0.2);
-        }
-
-        .modal-footer a {
-            color: #4ecdc4;
-            text-decoration: none;
-            font-weight: 600;
-            transition: all 0.3s;
-        }
-
-        .modal-footer a:hover {
-            color: #ff6b6b;
-            text-decoration: underline;
-        }
-
-        /* Contenido Principal (oculto inicialmente) */
-        .main-content {
+        /* Page Container */
+        .page {
             display: none;
-            opacity: 0;
-            transition: opacity 0.5s ease;
+            padding: 2rem 0;
+            min-height: calc(100vh - 120px);
         }
 
-        .main-content.visible {
+        .page.active {
             display: block;
-            opacity: 1;
         }
 
         /* Hero Section */
         .hero {
-            padding: 100px 0;
             text-align: center;
-            position: relative;
+            padding: 4rem 0;
+            background: linear-gradient(rgba(6, 78, 59, 0.8), rgba(6, 78, 59, 0.9)), url('https://placehold.co/1200x600/064e3b/10b981?text=FREEVIBES+Vaso') center/cover no-repeat;
+            border-radius: var(--border-radius);
+            margin: 2rem 0;
         }
-        
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: radial-gradient(circle at center, rgba(255,255,255,0.1) 0%, transparent 70%);
-            z-index: -1;
-        }
-        
+
         .hero h1 {
-            font-family: 'Playfair Display', serif;
-            font-size: 4rem;
-            margin-bottom: 20px;
-            color: white;
-            text-shadow: 0 4px 8px rgba(0,0,0,0.3);
-            background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--text-light);
         }
-        
-        .hero p {
-            font-size: 1.3rem;
-            max-width: 700px;
-            margin: 0 auto 20px;
-            color: rgba(255, 255, 255, 0.9);
-            font-weight: 300;
+
+        .hero-text {
+            font-size: 1.1rem;
+            max-width: 800px;
+            margin: 0 auto 2rem;
+            line-height: 1.8;
         }
-        
-        .cta-button {
-            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
-            color: white;
-            padding: 16px 48px;
-            border: none;
-            border-radius: 50px;
+
+        .hero-text strong {
+            color: var(--secondary-color);
+            font-weight: 700;
+        }
+
+        .cta-text {
             font-size: 1.2rem;
             font-weight: 600;
+            margin-top: 1rem;
+            color: var(--secondary-color);
+        }
+
+        /* Auth Form */
+        .auth-container {
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: 2rem;
+            max-width: 500px;
+            margin: 2rem auto;
+            color: var(--primary-color);
+            box-shadow: var(--shadow);
+        }
+
+        .tabs {
+            display: flex;
+            margin-bottom: 1.5rem;
+            border-bottom: 2px solid #e2e8f0;
+        }
+
+        .tab {
+            padding: 0.75rem 1.5rem;
             cursor: pointer;
-            transition: all 0.3s;
-            text-decoration: none;
+            font-weight: 600;
+            color: #64748b;
+            transition: var(--transition);
+        }
+
+        .tab.active {
+            color: var(--primary-color);
+            border-bottom: 3px solid var(--primary-color);
+        }
+
+        .form-group {
+            margin-bottom: 1.25rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--primary-dark);
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(6, 78, 59, 0.1);
+        }
+
+        .btn {
+            width: 100%;
+            padding: 0.75rem;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: var(--secondary-color);
+        }
+
+        .btn-secondary:hover {
+            background: #059669;
+        }
+
+        /* Dashboard */
+        .dashboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .user-info h2 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .tribe-badge {
             display: inline-block;
-            box-shadow: 0 8px 25px rgba(255, 107, 107, 0.4);
-        }
-        
-        .cta-button:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 12px 30px rgba(255, 107, 107, 0.6);
-        }
-        
-         /* Templates Section */
-        .templates {
-            background: white;
-            padding: 80px 0;
-            border-radius: 30px;
-            margin: 60px auto;
-            max-width: 1100px;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.2);
-        }
-        
-        .section-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 2.8rem;
-            margin-bottom: 50px;
-            text-align: center;
-            color: #1a1a1a;
-            position: relative;
-        }
-        
-        .section-title::after {
-            content: '';
-            position: absolute;
-            bottom: -15px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 80px;
-            height: 4px;
-            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
-            border-radius: 2px;
-        }
-        
-        .templates-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
-            padding: 0 20px;
-        }
-        
-        .template-card {
-            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            background: var(--secondary-color);
+            color: var(--primary-color);
+            padding: 0.25rem 0.75rem;
             border-radius: 20px;
-            padding: 30px;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .logout-btn {
+            background: transparent;
+            color: var(--text-light);
+            border: 2px solid var(--text-light);
+            width: auto;
+            padding: 0.5rem 1rem;
+        }
+
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .tool-card {
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: 2rem;
             text-align: center;
-            transition: all 0.3s;
-            border: 2px solid transparent;
+            box-shadow: var(--shadow);
+            color: var(--primary-color);
+            transition: var(--transition);
         }
-        
-        .template-card:hover {
-            transform: translateY(-10px);
-            border-color: #ff6b6b;
-            box-shadow: 0 15px 30px rgba(255, 107, 107, 0.2);
+
+        .tool-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.15);
         }
-        
-        .template-icon {
-            width: 70px;
-            height: 70px;
-            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
-            border-radius: 15px;
+
+        .icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .tool-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.75rem;
+            color: var(--primary-dark);
+        }
+
+        .tool-card p {
+            color: #64748b;
+            margin-bottom: 1.25rem;
+        }
+
+        .download-btn, .library-link {
+            display: inline-block;
+            background: var(--primary-color);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .download-btn:hover, .library-link:hover {
+            background: var(--primary-dark);
+        }
+
+        .download-links {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .download-links a {
+            display: block;
+            padding: 0.5rem;
+            background: var(--primary-color);
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            transition: var(--transition);
+        }
+
+        .download-links a:hover {
+            background: var(--primary-dark);
+        }
+
+        /* Library Page */
+        .books-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .book-card {
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            color: var(--primary-color);
+        }
+
+        .book-cover {
+            width: 100%;
+            height: 300px;
+            background: #cbd5e1;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 0 auto 20px;
-            color: white;
-            font-size: 2rem;
-            font-weight: bold;
+            font-size: 1.5rem;
+            color: var(--primary-color);
         }
-        
-        .template-card h3 {
-            font-size: 1.4rem;
-            margin-bottom: 15px;
-            color: #1a1a1a;
+
+        .book-info {
+            padding: 1.5rem;
         }
-        
-        /* Smart Features */
-        .smart-features {
-            padding: 80px 0;
-            text-align: center;
+
+        .book-info h3 {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            color: var(--primary-dark);
         }
-        
-        .features-container {
-            background: rgba(255, 255, 255, 0.9);
-            padding: 60px;
-            border-radius: 30px;
-            margin-top: 40px;
-            backdrop-filter: blur(10px);
+
+        .book-author {
+            color: #64748b;
+            margin-bottom: 1rem;
+            font-style: italic;
         }
-        
-        .hydration-section {
-            background: linear-gradient(135deg, #4ecdc4 0%, #45b7d1 100%);
-            color: white;
-            padding: 40px;
-            border-radius: 20px;
-            margin: 30px 0;
-        }
-        
-        .hydration-section h3 {
-            font-size: 2rem;
-            margin-bottom: 20px;
-        }
-        
-        .activities-section {
-            background: linear-gradient(135deg, #96ceb4 0%, #feca57 100%);
-            color: white;
-            padding: 40px;
-            border-radius: 20px;
-            margin: 30px 0;
-        }
-        
-        .levels-grid {
-            display: grid;
-            grid-template-columns: repeat(5, 1fr);
-            gap: 15px;
-            margin-top: 20px;
-        }
-        
-        .level {
-            background: rgba(255, 255, 255, 0.2);
-            padding: 15px;
-            border-radius: 10px;
-            font-weight: 600;
-        }
-        
-        /* Registration */
-        .registration {
-            padding: 80px 0;
-            text-align: center;
-        }
-        
-        .registration-form {
-            max-width: 500px;
-            margin: 40px auto;
-            background: rgba(255, 255, 255, 0.95);
-            padding: 50px;
-            border-radius: 30px;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.2);
-            backdrop-filter: blur(10px);
-        }
-        
-        .form-group {
-            margin-bottom: 25px;
-            text-align: left;
-        }
-        
-        .form-group label {
-            display: block;
-            margin-bottom: 10px;
-            font-weight: 600;
-            color: #1a1a1a;
-            font-size: 1.1rem;
-        }
-        
-        .form-group input {
-            width: 100%;
-            padding: 15px;
-            border: 2px solid #e0e0e0;
-            border-radius: 15px;
-            font-size: 1rem;
-            font-family: 'Space Grotesk', sans-serif;
-            transition: all 0.3s;
-        }
-        
-        .form-group input:focus {
-            border-color: #ff6b6b;
-            outline: none;
-            box-shadow: 0 0 0 3px rgba(255, 107, 107, 0.2);
-        }
-        
-        /* Footer */
-        footer {
-            text-align: center;
-            padding: 40px 0;
-            color: rgba(255, 255, 255, 0.8);
-            font-size: 1.1rem;
-        }
-        
-        /* Responsive */
+
+        /* Responsive Design */
         @media (max-width: 768px) {
             .hero h1 {
-                font-size: 2.8rem;
+                font-size: 2rem;
             }
             
-            .nav-links {
-                display: none;
+            .hero-text {
+                font-size: 1rem;
+                padding: 0 1rem;
             }
             
-            .section-title {
-                font-size: 2.2rem;
-            }
-            
-            .features-container {
-                padding: 30px;
-            }
-            
-            .levels-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-        
-        @media (max-width: 480px) {
-            .hero h1 {
-                font-size: 2.2rem;
-            }
-            
-            .levels-grid {
+            .tools-grid {
                 grid-template-columns: 1fr;
             }
+            
+            .books-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .dashboard-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+        }
+
+        /* Error Messages */
+        .error-message {
+            color: #ef4444;
+            font-size: 0.875rem;
+            margin-top: 0.25rem;
+            display: none;
+        }
+
+        .error-message.show {
+            display: block;
         }
     </style>
-.gallery-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 30px;
-    padding: 0 20px;
-}
-
-.resource-card {
-    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-    border-radius: 20px;
-    padding: 30px;
-    text-align: center;
-    transition: all 0.3s;
-    border: 2px solid transparent;
-}
-
-.resource-card:hover {
-    transform: translateY(-10px);
-    border-color: #ff6b6b;
-    box-shadow: 0 15px 30px rgba(255, 107, 107, 0.2);
-}
-
-.gallery-section {
-    margin-bottom: 60px;
-}
-</style>
 </head>
 <body>
-    <!-- Modal de Registro -->
-    <div id="loginModal" class="modal-overlay">
-        <div class="modal-glass">
-            <button class="close-modal" onclick="closeLogin()">×</button>
-            
-            <div class="modal-content">
-                <h2>🔐 FREEVIBES</h2>
-                <p>Ingresa el código único de tu vaso para acceder a la comunidad</p>
-                
-                <div class="input-group">
-                    <input type="text" id="userCode" placeholder="Código de tu vaso (Ej: FV-F-0001)" maxlength="20" required>
-                    <input type="email" id="userEmail" placeholder="Tu email principal (opcional para admin)">
-                    <input type="text" id="userName" placeholder="¿Cómo te llamas? (opcional para admin)">
-                    <button class="access-btn" onclick="validateRegistration()">🎯 UNIRME A LA COMUNIDAD</button>
+    <!-- Header -->
+    <header>
+        <div class="container header-content">
+            <div class="logo">FREEVIBES</div>
+        </div>
+    </header>
+
+    <!-- Home Page -->
+    <div id="home-page" class="page active">
+        <div class="container">
+            <div class="hero">
+                <h1>FREEVIBES: Tu Vaso, Tu Transformación</h1>
+                <p class="hero-text">
+                    "Este proyecto nació de mi propia lucha. De la oscuridad de la adicción y las deudas, logré escapar. Con fe, me fui a Mendoza sin un peso, vendí tortafritas y me liberé. Volví a cero, pero limpio. FREEVIBES es la prueba de que <strong>es posible renacer de los fragmentos</strong>. Así como transformo una botella rota en un vaso único, esta web te da las herramientas para construir la vida que querés. <strong>Vos también podés.</strong>"
+                </p>
+                <p class="cta-text">Tu viaje comienza ahora. Ingresá tu código.</p>
+            </div>
+
+            <div class="auth-container">
+                <div class="tabs">
+                    <div class="tab active" data-tab="register">REGISTRO</div>
+                    <div class="tab" data-tab="login">LOGIN</div>
                 </div>
-                
-                <div class="modal-footer">
-                    <p>¿No tienes un código?<br>
-                    <a href="https://tupagina-de-ventas.com" target="_blank">Consigue tu vaso FreeVibes aquí</a></p>
+
+                <!-- Registration Form -->
+                <form id="register-form">
+                    <div class="form-group">
+                        <label for="register-code">Código FREEVIBES *</label>
+                        <input type="text" id="register-code" required>
+                        <div class="error-message" id="code-error">Código inválido</div>
+                    </div>
+                    <div class="form-group">
+                        <label for="register-email">Email</label>
+                        <input type="email" id="register-email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="register-password">Contraseña</label>
+                        <input type="password" id="register-password" required>
+                    </div>
+                    <button type="submit" class="btn">Comenzar Mi Transformación</button>
+                </form>
+
+                <!-- Login Form -->
+                <form id="login-form" style="display: none;">
+                    <div class="form-group">
+                        <label for="login-email">Email</label>
+                        <input type="email" id="login-email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="login-password">Contraseña</label>
+                        <input type="password" id="login-password" required>
+                    </div>
+                    <button type="submit" class="btn">Continuar Mi Viaje</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Dashboard Page -->
+    <div id="dashboard-page" class="page">
+        <div class="container">
+            <div class="dashboard-header">
+                <div class="user-info">
+                    <h2 id="user-greeting">Hola, usuario@ejemplo.com</h2>
+                    <span class="tribe-badge" id="tribe-badge">Eres parte de la Tribu Superación</span>
+                </div>
+                <button class="btn logout-btn" id="logout-btn">Cerrar Sesión</button>
+            </div>
+
+            <div class="tools-grid">
+                <!-- Calendarios -->
+                <div class="tool-card">
+                    <div class="icon">📅</div>
+                    <h3>Calendarios Anuales</h3>
+                    <p>Planificá tu año, dominá tu tiempo</p>
+                    <div class="download-links">
+                        <a href="#" onclick="downloadFile('calendario-2025.pdf')">Descargar 2025</a>
+                        <a href="#" onclick="downloadFile('calendario-2026.pdf')">Descargar 2026</a>
+                    </div>
+                </div>
+
+                <!-- Proyectos -->
+                <div class="tool-card">
+                    <div class="icon">🚀</div>
+                    <h3>Mis Proyectos</h3>
+                    <p>Da vida a tus metas más grandes</p>
+                    <a href="#" onclick="downloadFile('proyectos-anuales.pdf')" class="download-btn">Descargar Plantilla</a>
+                </div>
+
+                <!-- Finanzas -->
+                <div class="tool-card">
+                    <div class="icon">💰</div>
+                    <h3>Mis Finanzas</h3>
+                    <p>Tomá el control de tu dinero</p>
+                    <a href="#" onclick="downloadFile('lista-de-ahorros.pdf')" class="download-btn">Descargar Plantilla</a>
+                </div>
+
+                <!-- No Negociables -->
+                <div class="tool-card">
+                    <div class="icon">⚖️</div>
+                    <h3>No Negociables</h3>
+                    <p>Defendé lo que más importa</p>
+                    <a href="#" onclick="downloadFile('no-negociables.pdf')" class="download-btn">Descargar Plantilla</a>
+                </div>
+
+                <!-- Biblioteca -->
+                <div class="tool-card">
+                    <div class="icon">📚</div>
+                    <h3>Biblioteca FREEVIBES</h3>
+                    <p>Alimentá tu mente, expandí tu visión</p>
+                    <a href="#" onclick="showPage('library-page')" class="library-link">Entrar a la Biblioteca</a>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Contenido Principal (oculto hasta registro) -->
-    <div id="mainContent" class="main-content">
-        <!-- Header -->
-        <header>
-            <div class="container">
-                <nav class="navbar">
-                    <div class="logo">Free<span>Vibes</span></div>
-                    <div class="nav-links">
-                        <a href="#templates">Plantillas</a>
-                        <a href="#features">Funciones</a>
-                        <a href="#premium">Comunidad Premium</a>
-                        <a href="#" onclick="logout()">Cerrar Sesión</a>
+    <!-- Library Page -->
+    <div id="library-page" class="page">
+        <div class="container">
+            <h1 style="text-align: center; margin: 2rem 0; font-size: 2rem;">Biblioteca FREEVIBES</h1>
+            <div class="books-grid">
+                <!-- Book 1 -->
+                <div class="book-card">
+                    <div class="book-cover">Portada Libro 1</div>
+                    <div class="book-info">
+                        <h3>El Poder del Ahora</h3>
+                        <div class="book-author">Eckhart Tolle</div>
+                        <a href="#" onclick="downloadFile('libro-1.pdf')" class="download-btn">Descargar PDF</a>
                     </div>
-                </nav>
-            </div>
-        </header>
-
-        <!-- Hero Section -->
-        <section class="hero">
-            <div class="container">
-                <h1>¡Bienvenido a FreeVibes!</h1>
-                <p><strong>Tu comunidad de crecimiento personal ha sido activada.</strong> 
-                Ahora tienes acceso exclusivo a todas las herramientas para transformar tu vida.</p>
-                
-                <div style="background: rgba(255,255,255,0.1); padding: 20px; border-radius: 15px; margin: 25px auto; max-width: 600px;">
-                    <p style="font-style: italic; color: white; margin: 0;">"Llevo 2 semanas en la comunidad y ya logré 3 metas que tenía pendientes por años."</p>
-                    <p style="color: rgba(255,255,255,0.8); font-size: 0.9rem; margin: 10px 0 0 0;">- Carlos, miembro FreeVibes</p>
                 </div>
 
-                <a href="#templates" class="cta-button">Explorar Recursos Exclusivos</a>
-            </div>
-        </section>
+                <!-- Book 2 -->
+                <div class="book-card">
+                    <div class="book-cover">Portada Libro 2</div>
+                    <div class="book-info">
+                        <h3>Los 7 Hábitos de la Gente Altamente Efectiva</h3>
+                        <div class="book-author">Stephen R. Covey</div>
+                        <a href="#" onclick="downloadFile('libro-2.pdf')" class="download-btn">Descargar PDF</a>
+                    </div>
+                </div>
 
-        <!-- Templates Section -->
-        <section id="templates" class="templates">
-            <h2 class="section-title">Tus Herramientas Exclusivas</h2>
-            <div class="templates-grid">
-                <div class="template-card">
-                    <div class="template-icon">📅</div>
-                    <h3>Calendario Anual 2024</h3>
-                    <p>Planifica tu año con plantillas editables</p>
+                <!-- Book 3 -->
+                <div class="book-card">
+                    <div class="book-cover">Portada Libro 3</div>
+                    <div class="book-info">
+                        <h3>Piense y Hágase Rico</h3>
+                        <div class="book-author">Napoleon Hill</div>
+                        <a href="#" onclick="downloadFile('libro-3.pdf')" class="download-btn">Descargar PDF</a>
+                    </div>
                 </div>
-                <div class="template-card">
-                    <div class="template-icon">🎯</div>
-                    <h3>Proyectos Anuales</h3>
-                    <p>Sistema de seguimiento de metas</p>
-                </div>
-                <div class="template-card">
-                    <div class="template-icon">✨</div>
-                    <h3>No Negociables</h3>
-                    <p>Define y mantén tus límites</p>
-                </div>
-                <div class="template-card">
-                    <div class="template-icon">📚</div>
-                    <h3>Biblioteca Premium</h3>
-                    <p>PDFs y recursos de crecimiento</p>
-                </div>
-            </div>
-        </section>
 
-        <!-- Zona Premium Futura -->
-        <section id="premium" class="premium-section">
-            <div class="premium-badge">PRÓXIMAMENTE</div>
-            <h2 class="section-title">Comunidad Premium FreeVibes</h2>
-            <p style="font-size: 1.2rem; margin-bottom: 30px; max-width: 600px; margin-left: auto; margin-right: auto;">
-                Próximamente: Grupos mastermind, mentorías en vivo, eventos exclusivos y contenido avanzado.
-            </p>
-            <div style="background: linear-gradient(45deg, #667eea, #764ba2); color: white; padding: 30px; border-radius: 20px; max-width: 500px; margin: 0 auto;">
-                <h3 style="margin-bottom: 15px;">🚀 Lista de Espera Premium</h3>
-                <p>Sé el primero en enterarte del lanzamiento y recibe 50% de descuento como miembro fundador.</p>
-                <input type="email" placeholder="Tu email" style="width: 100%; padding: 15px; border: none; border-radius: 10px; margin: 15px 0; font-size: 1rem;">
-                <button class="cta-button" style="width: 100%;">Unirme a la Lista de Espera</button>
+                <!-- Book 4 -->
+                <div class="book-card">
+                    <div class="book-cover">Portada Libro 4</div>
+                    <div class="book-info">
+                        <h3>El Alquimista</h3>
+                        <div class="book-author">Paulo Coelho</div>
+                        <a href="#" onclick="downloadFile('libro-4.pdf')" class="download-btn">Descargar PDF</a>
+                    </div>
+                </div>
             </div>
-        </section>
-
-        <!-- Footer -->
-        <footer>
-            <div class="container">
-                <p>FreeVibes | Cada vaso cuenta una historia, cada historia transforma vidas</p>
-                <p>© 2024 FreeVibes. Hecho con amor y botellas recicladas ♻️</p>
-            </div>
-        </footer>
+        </div>
     </div>
 
     <script>
-    // Base de datos de códigos válidos
-    const validCodes = ['ADMIN-777'];
+        // Valid FREEVIBES codes - CON LLAVE MAESTRA
+const codigosValidos = [
+    'ADMIN-777', // LLAVE MAESTRA PARA EL CREADOR
+    'FV-C100-001', 'FV-C100-002', 'FV-C100-003',
+    'FV-A-0001', 'FV-A-0002', 'FV-F-0001', 
+    'FV-MM-0001', 'FV-SUP-0001'
+];
+
+        // DOM Elements
+        const tabs = document.querySelectorAll('.tab');
+        const registerForm = document.getElementById('register-form');
+        const loginForm = document.getElementById('login-form');
+        const logoutBtn = document.getElementById('logout-btn');
+        const userGreeting = document.getElementById('user-greeting');
+        const tribeBadge = document.getElementById('tribe-badge');
+
+        // Tab switching
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                tabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                
+                if (tab.dataset.tab === 'register') {
+                    registerForm.style.display = 'block';
+                    loginForm.style.display = 'none';
+                } else {
+                    registerForm.style.display = 'none';
+                    loginForm.style.display = 'block';
+                }
+            });
+        });
+
+        // Form validation and submission
+        registerForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const code = document.getElementById('register-code').value;
+            const email = document.getElementById('register-email').value;
+            
+            // Validate code
+            if (!codigosValidos.includes(code)) {
+                document.getElementById('code-error').classList.add('show');
+                return;
+            }
+            
+            document.getElementById('code-error').classList.remove('show');
+            loginUser(email, code);
+        });
+
+        loginForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const email = document.getElementById('login-email').value;
+            loginUser(email, 'FV-SUP-0001'); // Default code for login
+        });
+
+        function loginUser(email, code) {
+    // Determine tribe based on code - CON LLAVE MAESTRA ESPECIAL
+    let tribe = "Superación";
+    let badgeText = "";
     
-    // Generar códigos para cada categoría
-    for (let i = 1; i <= 1000; i++) {
-        validCodes.push('FV-F-' + String(i).padStart(4, '0'));
-        validCodes.push('FV-A-' + String(i).padStart(4, '0'));
-        validCodes.push('FV-M-' + String(i).padStart(4, '0'));
-        validCodes.push('FV-MT-' + String(i).padStart(4, '0'));
-    }
-
-    const usedCodes = new Set();
-
-    // Función principal de validación
-    function validateRegistration() {
-        var code = document.getElementById('userCode').value.trim().toUpperCase();
-        var email = document.getElementById('userEmail').value.trim();
-        var name = document.getElementById('userName').value.trim();
-
-        if (!code) {
-            alert('Por favor ingresa un código');
-            return;
-        }
-
-        // ACCESO MAESTRO
-        if (code === 'ADMIN-777') {
-            localStorage.setItem('freevibes_user', JSON.stringify({
-                code: code,
-                email: email || 'admin@freevibes.com',
-                name: name || 'Administrador',
-                joined: new Date().toISOString()
-            }));
-            showMainContent();
-            return;
-        }
-
-        // Validación para códigos normales
-        if (!email || !name) {
-            alert('Para códigos de vasos, completa email y nombre');
-            return;
-        }
-
-        if (!validCodes.includes(code)) {
-            alert('Código inválido. Verifica el código de tu vaso.');
-            return;
-        }
-
-        if (usedCodes.has(code)) {
-            alert('Este código ya ha sido registrado.');
-            return;
-        }
-
-        // Registro exitoso
-        usedCodes.add(code);
-        localStorage.setItem('freevibes_user', JSON.stringify({
-            code: code,
-            email: email,
-            name: name,
-            joined: new Date().toISOString()
-        }));
-
-        showMainContent();
-    }
-
-    function showMainContent() {
-    console.log('🎉 Mostrando contenido principal...');
-    
-    // Ocultar modal
-    document.getElementById('loginModal').style.display = 'none';
-    document.body.classList.remove('modal-open');
-    
-    // Mostrar contenido principal CON TODOS LOS ESTILOS
-    var mainContent = document.getElementById('mainContent');
-    mainContent.style.display = 'block';
-    mainContent.style.opacity = '1';
-    mainContent.classList.add('visible');
-    
-    // Actualizar bienvenida
-    var user = JSON.parse(localStorage.getItem('freevibes_user'));
-    if (user && user.name) {
-        var title = document.querySelector('.hero h1');
-        if (title) {
-            title.textContent = '¡Bienvenido ' + user.name + '!';
-        }
+    if (code === 'ADMIN-777') {
+        tribe = "FUNDADOR";
+        badgeText = "🌟 CREADOR FREEVIBES 🌟";
+    } else if (code.startsWith('FV-A-')) {
+        tribe = "Animales";
+        badgeText = "Eres parte de la Manada FREEVIBES";
+    } else if (code.startsWith('FV-F-')) {
+        tribe = "Fútbol";
+        badgeText = "Eres parte del Equipo FREEVIBES";
+    } else if (code.startsWith('FV-MM-')) {
+        tribe = "Memes";
+        badgeText = "Eres parte de los Memes FREEVIBES";
+    } else if (code.startsWith('FV-C100-')) {
+        tribe = "FUTUROS VIP";
+        badgeText = "🎉 CLIENTE FUNDADOR - VIP FUTURO 🎉";
+    } else {
+        badgeText = "Eres parte de la Tribu Superación";
     }
     
-    console.log('✅ Contenido principal visible');
+    userGreeting.textContent = Hola, ${email};
+    tribeBadge.textContent = badgeText;
+    showPage('dashboard-page');
 }
 
-    function closeLogin() {
-        document.getElementById('loginModal').style.display = 'none';
-    }
+        logoutBtn.addEventListener('click', function() {
+            showPage('home-page');
+            registerForm.reset();
+            loginForm.reset();
+        });
 
-    function logout() {
-        if (confirm('¿Cerrar sesión?')) {
-            localStorage.removeItem('freevibes_user');
-            document.getElementById('mainContent').style.display = 'none';
-            document.getElementById('loginModal').style.display = 'flex';
-            document.getElementById('userCode').value = '';
-            document.getElementById('userEmail').value = '';
-            document.getElementById('userName').value = '';
+        // Page navigation
+        function showPage(pageId) {
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+            document.getElementById(pageId).classList.add('active');
         }
-    }
 
-    // Inicialización
-    document.addEventListener('DOMContentLoaded', function() {
-        var user = localStorage.getItem('freevibes_user');
-        if (user) {
-            showMainContent();
+        // Download function (simulated)
+        function downloadFile(filename) {
+            alert(Descargando: ${filename}\nEn una implementación real, esto descargaría el archivo PDF.);
         }
-    });
-</script>
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            // Set up tab functionality
+            document.querySelector('[data-tab="register"]').click();
+        });
+    </script>
 </body>
 </html>
