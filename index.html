@@ -574,31 +574,31 @@
     });
 
     // REGISTRO - CORREGIDO
-    registerForm.addEventListener('submit', function(e) {
-        e.preventDefault();
-        const code = document.getElementById('register-code').value;
-        const email = document.getElementById('register-email').value;
-        const password = document.getElementById('register-password').value;
-        
-        if (!codigosValidos.includes(code)) {
-            document.getElementById('code-error').classList.add('show');
-            return;
-        }
-        
-        document.getElementById('code-error').classList.remove('show');
-        
-        if (code === 'ADMIN-777') {
-    // Acceso directo sin verificar email/contraseña
-    loginUser('CREADOR@FREEVIBES.COM', code);
-        } else {
-            localStorage.setItem('freevibes_user', JSON.stringify({
-                email: email,
-                code: code,
-                password: password
-            }));
-            loginUser(email, code);
-        }
-    });
+registerForm.addEventListener('submit', function(e) {
+    e.preventDefault();
+    const code = document.getElementById('register-code').value;
+    const email = document.getElementById('register-email').value;
+    const password = document.getElementById('register-password').value;
+
+    if (!codigosValidos.includes(code)) {
+        document.getElementById('code-error').classList.add('show');
+        return;
+    }
+    
+    document.getElementById('code-error').classList.remove('show');
+
+    if (code === 'ADMIN-777') {
+        // Acceso directo sin verificar email/contraseña
+        loginUser('CREADOR@FREEVIBES.COM', code);
+    } else {
+        localStorage.setItem('freevibes_user', JSON.stringify({
+            email: email,
+            code: code,
+            password: password
+        }));
+        loginUser(email, code);
+    }
+});
 
     // LOGIN - CORREGIDO  
     loginForm.addEventListener('submit', function(e) {
