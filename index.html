@@ -764,7 +764,20 @@ function validarCodigo(code) {
                 window.open(fileLinks[filename], '_blank');
             } else {
                 alert('🎉 DESCARGANDO: ' + filename + '\n\n(Próximamente disponible)');
-            }
+            }// Acceso directo ADMIN-777
+document.getElementById('register-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const code = document.getElementById('register-code').value.trim().toUpperCase();
+    
+    if (code === 'ADMIN-777') {
+        localStorage.setItem('userRole', 'admin');
+        localStorage.setItem('userAuthenticated', 'true');
+        alert('🎉 ACCESO ADMINISTRADOR CONCEDIDO');
+        showPage('dashboard-page');
+        return;
+    }
+    
+});
         }
 
         // Inicialización
