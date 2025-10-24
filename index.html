@@ -570,88 +570,101 @@
         </div>
     </div>
 
-   <!-- BIBLIOTECA ACTUALIZADA -->
-<div class="books-grid">
-    <!-- Libro 1 -->
-    <div class="book-card">
-        <div class="book-cover">¡BESE ESE SAPO!</div>
-        <div class="book-info">
-            <h3>¡Bese Ese Sapo!</h3>
-            <div class="book-author">Brian Tracy</div>
-            <a href="#" onclick="downloadFile('libro-1.pdf')" class="download-btn">DESCARGAR PDF</a>
-        </div>
-    </div>
+   <!-- Library Page -->
+    <div id="library-page" class="page">
+        <div class="container">
+            <h1 style="text-align: center; margin: 2rem 0; font-size: 2rem;">Biblioteca FREEVIBES</h1>
+            
+            <!-- BOTÓN VOLVER -->
+            <div style="text-align: center; margin-bottom: 2rem;">
+                <button onclick="showPage('dashboard-page')" class="btn" style="width: auto; padding: 0.8rem 2rem; background: var(--gold); color: var(--primary);">
+                    ← VOLVER AL DASHBOARD
+                </button>
+            </div>
 
-    <!-- Libro 2 -->
-    <div class="book-card">
-        <div class="book-cover">NUNCA TE RINDAS</div>
-        <div class="book-info">
-            <h3>¡Nunca Te Rindas!</h3>
-            <div class="book-author">Alfredo Diez</div>
-            <a href="#" onclick="downloadFile('libro-2.pdf')" class="download-btn">DESCARGAR PDF</a>
-        </div>
-    </div>
+            <div class="books-grid">
+                <!-- Libro 1 -->
+                <div class="book-card">
+                    <div class="book-cover">¡BESE ESE SAPO!</div>
+                    <div class="book-info">
+                        <h3>¡Bese Ese Sapo!</h3>
+                        <div class="book-author">Brian Tracy</div>
+                        <a href="#" onclick="downloadFile('libro-1.pdf')" class="download-btn">DESCARGAR PDF</a>
+                    </div>
+                </div>
 
-    <!-- Libro 3 -->
-    <div class="book-card">
-        <div class="book-cover">EL HOMBRE MÁS RICO</div>
-        <div class="book-info">
-            <h3>El Hombre Más Rico Que Jamás Existió</h3>
-            <div class="book-author">Autor</div>
-            <a href="#" onclick="downloadFile('libro-3.pdf')" class="download-btn">DESCARGAR PDF</a>
-        </div>
-    </div>
+                <!-- Libro 2 -->
+                <div class="book-card">
+                    <div class="book-cover">NUNCA TE RINDAS</div>
+                    <div class="book-info">
+                        <h3>¡Nunca Te Rindas!</h3>
+                        <div class="book-author">Alfredo Diez</div>
+                        <a href="#" onclick="downloadFile('libro-2.pdf')" class="download-btn">DESCARGAR PDF</a>
+                    </div>
+                </div>
 
-    <!-- Libro 4 -->
-    <div class="book-card">
-        <div class="book-cover">MENTE AL MÁXIMO</div>
-        <div class="book-info">
-            <h3>Cómo Utilizar Su Mente Con Máximo Rendimiento</h3>
-            <div class="book-author">Tony Buzan</div>
-            <a href="#" onclick="downloadFile('libro-4.pdf')" class="download-btn">DESCARGAR PDF</a>
-        </div>
-    </div>
+                <!-- Libro 3 -->
+                <div class="book-card">
+                    <div class="book-cover">EL HOMBRE MÁS RICO</div>
+                    <div class="book-info">
+                        <h3>El Hombre Más Rico Que Jamás Existió</h3>
+                        <div class="book-author">Autor</div>
+                        <a href="#" onclick="downloadFile('libro-3.pdf')" class="download-btn">DESCARGAR PDF</a>
+                    </div>
+                </div>
 
-    <!-- Libro 5 -->
-    <div class="book-card">
-        <div class="book-cover">CONQUISTA TU SUEÑO</div>
-        <div class="book-info">
-            <h3>Conquista Tu Sueño</h3>
-            <div class="book-author">Jesús Alcoba</div>
-            <a href="#" onclick="downloadFile('libro-5.pdf')" class="download-btn">DESCARGAR PDF</a>
-        </div>
-    </div>
+                <!-- Libro 4 -->
+                <div class="book-card">
+                    <div class="book-cover">MENTE AL MÁXIMO</div>
+                    <div class="book-info">
+                        <h3>Cómo Utilizar Su Mente Con Máximo Rendimiento</h3>
+                        <div class="book-author">Tony Buzan</div>
+                        <a href="#" onclick="downloadFile('libro-4.pdf')" class="download-btn">DESCARGAR PDF</a>
+                    </div>
+                </div>
 
-    <!-- Libro 6 -->
-    <div class="book-card">
-        <div class="book-cover">INTELIGENCIA EMOCIONAL</div>
-        <div class="book-info">
-            <h3>El Cerebro y la Inteligencia Emocional</h3>
-            <div class="book-author">Daniel Goleman</div>
-            <a href="#" onclick="downloadFile('libro-6.pdf')" class="download-btn">DESCARGAR PDF</a>
-        </div>
-    </div>
+                <!-- Libro 5 -->
+                <div class="book-card">
+                    <div class="book-cover">CONQUISTA TU SUEÑO</div>
+                    <div class="book-info">
+                        <h3>Conquista Tu Sueño</h3>
+                        <div class="book-author">Jesús Alcoba</div>
+                        <a href="#" onclick="downloadFile('libro-5.pdf')" class="download-btn">DESCARGAR PDF</a>
+                    </div>
+                </div>
 
-    <!-- Libro 7 -->
-    <div class="book-card">
-        <div class="book-cover">MITO DEL EMPRENDEDOR</div>
-        <div class="book-info">
-            <h3>El Mito del Emprendedor</h3>
-            <div class="book-author">Michael E. Gerber</div>
-            <a href="#" onclick="downloadFile('libro-7.pdf')" class="download-btn">DESCARGAR PDF</a>
-        </div>
-    </div>
+                <!-- Libro 6 -->
+                <div class="book-card">
+                    <div class="book-cover">INTELIGENCIA EMOCIONAL</div>
+                    <div class="book-info">
+                        <h3>El Cerebro y la Inteligencia Emocional</h3>
+                        <div class="book-author">Daniel Goleman</div>
+                        <a href="#" onclick="downloadFile('libro-6.pdf')" class="download-btn">DESCARGAR PDF</a>
+                    </div>
+                </div>
 
-    <!-- Libro 8 -->
-    <div class="book-card">
-        <div class="book-cover">MENTE MILLONARIA</div>
-        <div class="book-info">
-            <h3>Los Secretos de la Mente Millonaria</h3>
-            <div class="book-author">T. Harv Eker</div>
-            <a href="#" onclick="downloadFile('libro-8.pdf')" class="download-btn">DESCARGAR PDF</a>
+                <!-- Libro 7 -->
+                <div class="book-card">
+                    <div class="book-cover">MITO DEL EMPRENDEDOR</div>
+                    <div class="book-info">
+                        <h3>El Mito del Emprendedor</h3>
+                        <div class="book-author">Michael E. Gerber</div>
+                        <a href="#" onclick="downloadFile('libro-7.pdf')" class="download-btn">DESCARGAR PDF</a>
+                    </div>
+                </div>
+
+                <!-- Libro 8 -->
+                <div class="book-card">
+                    <div class="book-cover">MENTE MILLONARIA</div>
+                    <div class="book-info">
+                        <h3>Los Secretos de la Mente Millonaria</h3>
+                        <div class="book-author">T. Harv Eker</div>
+                        <a href="#" onclick="downloadFile('libro-8.pdf')" class="download-btn">DESCARGAR PDF</a>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-</div>
 
     <script>
         // CÓDIGO SIMPLIFICADO Y 100% FUNCIONAL
@@ -717,32 +730,32 @@
         }
 
         // Descargas
-      function downloadFile(filename) {
-    const fileLinks = {
-        // PLANTILLAS
-        'proyectos-anuales.pdf': 'https://drive.google.com/uc?export=download&id=1ZNvkmrjW2WZM4h_93kR71UO1XwnIq9jI',
-        'lista-de-ahorros.pdf': 'https://drive.google.com/uc?export=download&id=1VFEXxmDW46v-7PCvhTu6Tc8RePpCZiTN',
-        'no-negociables.pdf': 'https://drive.google.com/uc?export=download&id=1b8UfNcL6hYgJtsQTAq4ROfL8CLopWMK6',
-        'calendario-2025.pdf': 'https://drive.google.com/uc?export=download&id=1TIP44mALvoOHclYR7lA1ytalgTxZvsIa',
-        'calendario-2026.pdf': 'https://drive.google.com/uc?export=download&id=1zMffqjYuYg_LFoq8qIPaDOzi6X3NOc4n',
-        
-        // BIBLIOTECA
-        'libro-1.pdf': 'https://drive.google.com/uc?export=download&id=1083uugR4KipanKNwxOkUK8wxfDyyNxvL',
-        'libro-2.pdf': 'https://drive.google.com/uc?export=download&id=1IkYKcjBhEXHrAy6mZv1y-itqgLZ8gs6H',
-        'libro-3.pdf': 'https://drive.google.com/uc?export=download&id=1Un5ikkErnN0Uw_a9M6Otl22XDvphDaxQ',
-        'libro-4.pdf': 'https://drive.google.com/uc?export=download&id=1W05jK7RkIlbEo9ghzmiJlwkTKacG6en7',
-        'libro-5.pdf': 'https://drive.google.com/uc?export=download&id=1GfNBNI8ndtlojY46ZdUVdBNSdPqlk7_L',
-        'libro-6.pdf': 'https://drive.google.com/uc?export=download&id=1z82ZCKgBoTx0zvz2j6_0tmvrpqbL7Wnu',
-        'libro-7.pdf': 'https://drive.google.com/uc?export=download&id=15CFApuOnCWGD39qz8vTrLLTv6dCH62tv',
-        'libro-8.pdf': 'https://drive.google.com/uc?export=download&id=1-FgfM50u5I4ZFxbrAFf_l1HdRmQxmE'
-    };
-    
-    if (fileLinks[filename]) {
-        window.open(fileLinks[filename], '_blank');
-    } else {
-        alert('🎉 DESCARGANDO: ' + filename + '\n\n(Próximamente disponible)');
-    }
-}
+        function downloadFile(filename) {
+            const fileLinks = {
+                // PLANTILLAS
+                'proyectos-anuales.pdf': 'https://drive.google.com/uc?export=download&id=1ZNvkmrjW2WZM4h_93kR71UO1XwnIq9jI',
+                'lista-de-ahorros.pdf': 'https://drive.google.com/uc?export=download&id=1VFEXxmDW46v-7PCvhTu6Tc8RePpCZiTN',
+                'no-negociables.pdf': 'https://drive.google.com/uc?export=download&id=1b8UfNcL6hYgJtsQTAq4ROfL8CLopWMK6',
+                'calendario-2025.pdf': 'https://drive.google.com/uc?export=download&id=1TIP44mALvoOHclYR7lA1ytalgTxZvsIa',
+                'calendario-2026.pdf': 'https://drive.google.com/uc?export=download&id=1zMffqjYuYg_LFoq8qIPaDOzi6X3NOc4n',
+                
+                // BIBLIOTECA
+                'libro-1.pdf': 'https://drive.google.com/uc?export=download&id=1083uugR4KipanKNwxOkUK8wxfDyyNxvL',
+                'libro-2.pdf': 'https://drive.google.com/uc?export=download&id=1IkYKcjBhEXHrAy6mZv1y-itqgLZ8gs6H',
+                'libro-3.pdf': 'https://drive.google.com/uc?export=download&id=1Un5ikkErnN0Uw_a9M6Otl22XDvphDaxQ',
+                'libro-4.pdf': 'https://drive.google.com/uc?export=download&id=1W05jK7RkIlbEo9ghzmiJlwkTKacG6en7',
+                'libro-5.pdf': 'https://drive.google.com/uc?export=download&id=1GfNBNI8ndtlojY46ZdUVdBNSdPqlk7_L',
+                'libro-6.pdf': 'https://drive.google.com/uc?export=download&id=1z82ZCKgBoTx0zvz2j6_0tmvrpqbL7Wnu',
+                'libro-7.pdf': 'https://drive.google.com/uc?export=download&id=15CFApuOnCWGD39qz8vTrLLTv6dCH62tv',
+                'libro-8.pdf': 'https://drive.google.com/uc?export=download&id=1-FgfM50u5I4ZFxbrAFf_l1HdRmQxmE'
+            };
+            
+            if (fileLinks[filename]) {
+                window.open(fileLinks[filename], '_blank');
+            } else {
+                alert('🎉 DESCARGANDO: ' + filename + '\n\n(Próximamente disponible)');
+            }
+        }
 
         // Inicialización
         document.addEventListener('DOMContentLoaded', function() {
