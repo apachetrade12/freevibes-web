@@ -588,9 +588,10 @@ registerForm.addEventListener('submit', function(e) {
     document.getElementById('code-error').classList.remove('show');
 
     if (code === 'ADMIN-777') {
-        // Acceso directo sin verificar email/contraseña
-        loginUser('CREADOR@FREEVIBES.COM', code);
-    } else {
+    // Acceso directo sin verificar email/contraseña
+    loginUser('CREADOR@FREEVIBES.COM', code);
+    return;  // ← ESTA LÍNEA NUEVA - EVITA QUE PIDA EMAIL/CONTRASEÑA
+} else {
         localStorage.setItem('freevibes_user', JSON.stringify({
             email: email,
             code: code,
