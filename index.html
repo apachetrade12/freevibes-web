@@ -679,9 +679,17 @@
         }
 
         // Descargas
-        function downloadFile(filename) {
-            alert('🎉 DESCARGANDO: ' + filename + '\n\nTu recurso premium está listo. ¡A transformarse!');
-        }
+       function downloadFile(filename) {
+    const fileLinks = {
+        'proyectos-anuales.pdf': 'https://raw.githubusercontent.com/apachetrade12/freevibes-web/main/pdfs/plantillas/proyectos-anuales.pdf'
+    };
+    
+    if (fileLinks[filename]) {
+        window.open(fileLinks[filename], '_blank');
+    } else {
+        alert('🎉 DESCARGANDO: ' + filename + '\n\n(Próximamente disponible)');
+    }
+}
 
         // Inicialización
         document.addEventListener('DOMContentLoaded', function() {
