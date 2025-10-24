@@ -575,19 +575,32 @@ const codigosValidos = [
 
         // Form validation and submission
         registerForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            const code = document.getElementById('register-code').value;
-            const email = document.getElementById('register-email').value;
-            
-            // Validate code
-            if (!codigosValidos.includes(code)) {
-                document.getElementById('code-error').classList.add('show');
-                return;
-            }
-            
-            document.getElementById('code-error').classList.remove('show');
-            loginUser(email, code);
-        });
+    e.preventDefault();
+    const code = document.getElementById('register-code').value;
+    const email = document.getElementById('register-email').value;
+    const password = document.getElementById('register-password').value;
+    
+    // Validar código - CON ACCESO DIRECTO PARA ADMIN-777
+    if (!codigosValidos.includes(code)) {
+        document.getElementById('code-error').classList.add('show');
+        return;
+    }
+    
+    document.getElementById('code-error').classList.remove('show');
+    
+    // Si es ADMIN-777, acceso directo sin guardar datos
+    if (code === 'ADMIN-777') {
+        loginUser('CREADOR FREEVIBES', code);
+    } else {
+        // Para códigos normales, guardar datos
+        localStorage.setItem('freevibes_user', JSON.stringify({
+            email: email,
+            code: code,
+            password: password
+        }));
+        loginUser(email, code);
+    }
+});
 
         loginForm.addEventListener('submit', function(e) {
             e.preventDefault();
