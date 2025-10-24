@@ -541,14 +541,9 @@
     </div>
 
     <script>
-    // Valid FREEVIBES codes - CON LLAVE MAESTRA
-    const codigosValidos = [
-        'ADMIN-777', // LLAVE MAESTRA PARA EL CREADOR
-        'FV-C100-001', 'FV-C100-002', 'FV-C100-003',
-        'FV-A-0001', 'FV-A-0002', 'FV-F-0001', 
-        'FV-MM-0001', 'FV-SUP-0001'
-    ];
-
+    // Valid FREEVIBES codes
+    const codigosValidos = ['ADMIN-777', 'FV-C100-001', 'FV-A-0001'];
+    
     // DOM Elements
     const tabs = document.querySelectorAll('.tab');
     const registerForm = document.getElementById('register-form');
@@ -557,12 +552,11 @@
     const userGreeting = document.getElementById('user-greeting');
     const tribeBadge = document.getElementById('tribe-badge');
 
-    // Tab switching - ESTE CÓDIGO ESTÁ BIEN
+    // Tabs
     tabs.forEach(tab => {
         tab.addEventListener('click', () => {
             tabs.forEach(t => t.classList.remove('active'));
             tab.classList.add('active');
-            
             if (tab.dataset.tab === 'register') {
                 registerForm.style.display = 'block';
                 loginForm.style.display = 'none';
@@ -573,102 +567,54 @@
         });
     });
 
-    // REGISTRO - SOLUCIÓN DEFINITIVA
-registerForm.addEventListener('submit', function(e) {
-    e.preventDefault();
-    const code = document.getElementById('register-code').value;
-    
-    // SOLO validar el código, ignorar todo lo demás
-    if (!codigosValidos.includes(code)) {
-        document.getElementById('code-error').classList.add('show');
-        return;
-    }
-    
-    document.getElementById('code-error').classList.remove('show');
-    
-    // ADMIN-777 entra DIRECTO
-    if (code === 'ADMIN-777') {
-        loginUser('CREADOR FREEVIBES', code);
-        return;
-    }
-    
-    // Para otros códigos, sí pedir email/contraseña
-    const email = document.getElementById('register-email').value;
-    const password = document.getElementById('register-password').value;
-    
-    if (!email || !password) {
-        alert('Para códigos normales, necesitás email y contraseña');
-        return;
-    }
-    
-    localStorage.setItem('freevibes_user', JSON.stringify({
-        email: email,
-        code: code,
-        password: password
-    }));
-    loginUser(email, code);
-});
+    // Registro - SIMPLIFICADO
+    registerForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        const code = document.getElementById('register-code').value;
+        
+        if (codigosValidos.includes(code)) {
+            if (code === 'ADMIN-777') {
+                userGreeting.textContent = 'Hola, CREADOR';
+                tribeBadge.textContent = '🌟 CREADOR FREEVIBES 🌟';
+            } else {
+                userGreeting.textContent = 'Hola, USUARIO';
+                tribeBadge.textContent = 'Eres parte de FREEVIBES';
+            }
+            document.getElementById('home-page').classList.remove('active');
+            document.getElementById('dashboard-page').classList.add('active');
+        } else {
+            alert('Código incorrecto. Usá: ADMIN-777');
+        }
+    });
 
-    // LOGIN - CORREGIDO  
+    // Login - SIMPLIFICADO  
     loginForm.addEventListener('submit', function(e) {
         e.preventDefault();
-        const email = document.getElementById('login-email').value;
-        const password = document.getElementById('login-password').value;
-        
-        const savedUser = localStorage.getItem('freevibes_user');
-        if (savedUser) {
-            const userData = JSON.parse(savedUser);
-            if (userData.email === email && userData.password === password) {
-                loginUser(email, userData.code);
-                return;
-            }
-        }
-        
-        alert('Email o contraseña incorrectos');
+        userGreeting.textContent = 'Hola, USUARIO LOGUEADO';
+        tribeBadge.textContent = 'Eres parte de FREEVIBES';
+        document.getElementById('home-page').classList.remove('active');
+        document.getElementById('dashboard-page').classList.add('active');
     });
 
-    function loginUser(email, code) {
-        let badgeText = "";
-        
-        if (code === 'ADMIN-777') {
-            badgeText = "🌟 CREADOR FREEVIBES 🌟";
-        } else if (code.startsWith('FV-A-')) {
-            badgeText = "Eres parte de la Manada FREEVIBES";
-        } else if (code.startsWith('FV-F-')) {
-            badgeText = "Eres parte del Equipo FREEVIBES";
-        } else if (code.startsWith('FV-MM-')) {
-            badgeText = "Eres parte de los Memes FREEVIBES";
-        } else if (code.startsWith('FV-C100-')) {
-            badgeText = "🎉 CLIENTE FUNDADOR - VIP FUTURO 🎉";
-        } else {
-            badgeText = "Eres parte de la Tribu Superación";
-        }
-        
-        userGreeting.textContent = 'Hola, ' + email;
-        tribeBadge.textContent = badgeText;
-        showPage('dashboard-page');
-    }
-
+    // Logout
     logoutBtn.addEventListener('click', function() {
-        showPage('home-page');
-        registerForm.reset();
-        loginForm.reset();
+        document.getElementById('dashboard-page').classList.remove('active');
+        document.getElementById('home-page').classList.add('active');
     });
 
+    // Navegación
     function showPage(pageId) {
-        document.querySelectorAll('.page').forEach(page => {
-            page.classList.remove('active');
-        });
+        document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
         document.getElementById(pageId).classList.add('active');
     }
 
+    // Descargas
     function downloadFile(filename) {
-        alert('Descargando: ' + filename + '\nEn una implementación real, esto descargaría el archivo PDF.');
+        alert('Descargando: ' + filename);
     }
 
-    document.addEventListener('DOMContentLoaded', function() {
-        document.querySelector('[data-tab="register"]').click();
-    });
+    // Init
+    document.querySelector('[data-tab="register"]').click();
 </script>
 </body>
 </html>
