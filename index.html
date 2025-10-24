@@ -3,19 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FREEVIBES - De los fragmentos, creamos tu futuro</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <title>FREEVIBES - Tu Transformación Comienza Aquí</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary-color: #064e3b;
-            --primary-dark: #043a2d;
-            --secondary-color: #10b981;
-            --text-light: #f8fafc;
-            --text-gray: #94a3b8;
+            --primary: #0a2540;
+            --accent: #00d4aa;
+            --gold: #ffd700;
+            --dark-bg: #0f172a;
             --card-bg: rgba(255, 255, 255, 0.95);
-            --border-radius: 12px;
-            --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
-            --transition: all 0.3s ease;
+            --text-light: #f8fafc;
+            --gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         }
 
         * {
@@ -26,10 +24,21 @@
 
         body {
             font-family: 'Montserrat', sans-serif;
-            background-color: var(--primary-color);
+            background: var(--dark-bg);
             color: var(--text-light);
-            line-height: 1.6;
             min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .background-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--gradient);
+            opacity: 0.1;
+            z-index: -1;
         }
 
         .container {
@@ -38,14 +47,16 @@
             padding: 0 20px;
         }
 
-        /* Header Styles */
+        /* Header Elegante */
         header {
-            background: rgba(6, 78, 59, 0.9);
-            backdrop-filter: blur(10px);
+            background: rgba(10, 37, 64, 0.95);
+            backdrop-filter: blur(20px);
             padding: 1rem 0;
-            position: sticky;
+            position: fixed;
+            width: 100%;
             top: 0;
-            z-index: 100;
+            z-index: 1000;
+            border-bottom: 2px solid var(--accent);
         }
 
         .header-content {
@@ -55,318 +66,377 @@
         }
 
         .logo {
-            font-size: 1.8rem;
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
             font-weight: 700;
-            color: var(--text-light);
+            background: linear-gradient(45deg, var(--accent), var(--gold));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
-        /* Page Container */
+        /* Páginas */
         .page {
             display: none;
-            padding: 2rem 0;
-            min-height: calc(100vh - 120px);
+            min-height: 100vh;
+            padding-top: 80px;
         }
 
         .page.active {
             display: block;
+            animation: fadeIn 0.8s ease;
         }
 
-        /* Hero Section */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Hero Section Impactante */
         .hero {
             text-align: center;
-            padding: 4rem 0;
-            background: linear-gradient(rgba(6, 78, 59, 0.8), rgba(6, 78, 59, 0.9)), url('https://placehold.co/1200x600/064e3b/10b981?text=FREEVIBES+Vaso') center/cover no-repeat;
-            border-radius: var(--border-radius);
-            margin: 2rem 0;
+            padding: 6rem 0 4rem;
+            position: relative;
         }
 
         .hero h1 {
-            font-size: 2.5rem;
-            margin-bottom: 1.5rem;
-            color: var(--text-light);
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            margin-bottom: 2rem;
+            background: linear-gradient(45deg, var(--text-light), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1.2;
         }
 
         .hero-text {
-            font-size: 1.1rem;
-            max-width: 800px;
-            margin: 0 auto 2rem;
+            font-size: 1.3rem;
+            max-width: 700px;
+            margin: 0 auto 3rem;
             line-height: 1.8;
+            opacity: 0.9;
         }
 
-        .hero-text strong {
-            color: var(--secondary-color);
-            font-weight: 700;
-        }
-
-        .cta-text {
-            font-size: 1.2rem;
-            font-weight: 600;
-            margin-top: 1rem;
-            color: var(--secondary-color);
-        }
-
-        /* Auth Form */
-        .auth-container {
-            background: var(--card-bg);
-            border-radius: var(--border-radius);
+        .story-highlight {
+            background: rgba(0, 212, 170, 0.1);
+            border-left: 4px solid var(--accent);
             padding: 2rem;
+            border-radius: 12px;
+            margin: 2rem auto;
+            max-width: 800px;
+            font-style: italic;
+        }
+
+        /* Auth Container Mejorado */
+        .auth-container {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 3rem;
             max-width: 500px;
             margin: 2rem auto;
-            color: var(--primary-color);
-            box-shadow: var(--shadow);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
         }
 
         .tabs {
             display: flex;
-            margin-bottom: 1.5rem;
-            border-bottom: 2px solid #e2e8f0;
+            margin-bottom: 2rem;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 5px;
         }
 
         .tab {
-            padding: 0.75rem 1.5rem;
+            flex: 1;
+            padding: 1rem;
+            text-align: center;
             cursor: pointer;
             font-weight: 600;
-            color: #64748b;
-            transition: var(--transition);
+            border-radius: 8px;
+            transition: all 0.3s ease;
         }
 
         .tab.active {
-            color: var(--primary-color);
-            border-bottom: 3px solid var(--primary-color);
+            background: var(--accent);
+            color: var(--primary);
         }
 
         .form-group {
-            margin-bottom: 1.25rem;
+            margin-bottom: 1.5rem;
         }
 
         .form-group label {
             display: block;
             margin-bottom: 0.5rem;
             font-weight: 600;
-            color: var(--primary-dark);
+            color: var(--accent);
         }
 
         .form-group input {
             width: 100%;
-            padding: 0.75rem;
-            border: 2px solid #e2e8f0;
-            border-radius: 8px;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            color: var(--text-light);
             font-size: 1rem;
-            transition: var(--transition);
+            transition: all 0.3s ease;
         }
 
         .form-group input:focus {
             outline: none;
-            border-color: var(--primary-color);
-            box-shadow: 0 0 0 3px rgba(6, 78, 59, 0.1);
+            border-color: var(--accent);
+            background: rgba(255, 255, 255, 0.15);
         }
 
         .btn {
             width: 100%;
-            padding: 0.75rem;
-            background: var(--primary-color);
-            color: white;
+            padding: 1rem;
+            background: var(--accent);
+            color: var(--primary);
             border: none;
-            border-radius: 8px;
+            border-radius: 10px;
             font-size: 1.1rem;
-            font-weight: 600;
+            font-weight: 700;
             cursor: pointer;
-            transition: var(--transition);
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         .btn:hover {
-            background: var(--primary-dark);
-            transform: translateY(-2px);
+            background: var(--gold);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(255, 215, 0, 0.3);
         }
 
-        .btn-secondary {
-            background: var(--secondary-color);
-        }
-
-        .btn-secondary:hover {
-            background: #059669;
-        }
-
-        /* Dashboard */
+        /* Dashboard Premium */
         .dashboard-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 2rem;
-            padding-bottom: 1rem;
+            margin-bottom: 3rem;
+            padding-bottom: 1.5rem;
             border-bottom: 2px solid rgba(255, 255, 255, 0.1);
         }
 
         .user-info h2 {
-            font-size: 1.5rem;
+            font-size: 1.8rem;
             margin-bottom: 0.5rem;
+            color: var(--accent);
         }
 
         .tribe-badge {
             display: inline-block;
-            background: var(--secondary-color);
-            color: var(--primary-color);
-            padding: 0.25rem 0.75rem;
-            border-radius: 20px;
-            font-weight: 600;
+            background: linear-gradient(45deg, var(--accent), var(--gold));
+            color: var(--primary);
+            padding: 0.5rem 1.5rem;
+            border-radius: 25px;
+            font-weight: 700;
             font-size: 0.9rem;
+            animation: glow 2s infinite;
+        }
+
+        @keyframes glow {
+            0%, 100% { box-shadow: 0 0 10px rgba(0, 212, 170, 0.5); }
+            50% { box-shadow: 0 0 20px rgba(0, 212, 170, 0.8); }
         }
 
         .logout-btn {
             background: transparent;
             color: var(--text-light);
-            border: 2px solid var(--text-light);
+            border: 2px solid var(--accent);
             width: auto;
-            padding: 0.5rem 1rem;
+            padding: 0.7rem 1.5rem;
         }
 
+        /* Tools Grid Mejorado */
         .tools-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1.5rem;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
             margin-top: 2rem;
         }
 
         .tool-card {
-            background: var(--card-bg);
-            border-radius: var(--border-radius);
-            padding: 2rem;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 2.5rem;
             text-align: center;
-            box-shadow: var(--shadow);
-            color: var(--primary-color);
-            transition: var(--transition);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tool-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+            transition: left 0.5s;
+        }
+
+        .tool-card:hover::before {
+            left: 100%;
         }
 
         .tool-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.15);
+            transform: translateY(-10px);
+            border-color: var(--accent);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
         }
 
         .icon {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            opacity: 0.9;
         }
 
         .tool-card h3 {
-            font-size: 1.3rem;
-            margin-bottom: 0.75rem;
-            color: var(--primary-dark);
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--accent);
+            font-weight: 700;
         }
 
         .tool-card p {
-            color: #64748b;
-            margin-bottom: 1.25rem;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 2rem;
+            line-height: 1.6;
         }
 
         .download-btn, .library-link {
             display: inline-block;
-            background: var(--primary-color);
-            color: white;
-            padding: 0.5rem 1rem;
-            border-radius: 6px;
+            background: var(--accent);
+            color: var(--primary);
+            padding: 0.8rem 2rem;
+            border-radius: 25px;
             text-decoration: none;
-            font-weight: 600;
-            transition: var(--transition);
+            font-weight: 700;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
         }
 
         .download-btn:hover, .library-link:hover {
-            background: var(--primary-dark);
+            background: transparent;
+            color: var(--accent);
+            border-color: var(--accent);
+            transform: translateY(-3px);
         }
 
         .download-links {
             display: flex;
             flex-direction: column;
-            gap: 0.5rem;
+            gap: 0.8rem;
         }
 
         .download-links a {
             display: block;
-            padding: 0.5rem;
-            background: var(--primary-color);
-            color: white;
+            padding: 0.8rem;
+            background: var(--accent);
+            color: var(--primary);
             text-decoration: none;
-            border-radius: 6px;
-            transition: var(--transition);
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            font-weight: 600;
         }
 
         .download-links a:hover {
-            background: var(--primary-dark);
+            background: var(--gold);
+            transform: translateX(5px);
         }
 
-        /* Library Page */
+        /* Biblioteca Premium */
         .books-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 2rem;
-            margin-top: 2rem;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2.5rem;
+            margin-top: 3rem;
         }
 
         .book-card {
-            background: var(--card-bg);
-            border-radius: var(--border-radius);
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
             overflow: hidden;
-            box-shadow: var(--shadow);
-            color: var(--primary-color);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .book-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--accent);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
         }
 
         .book-cover {
             width: 100%;
-            height: 300px;
-            background: #cbd5e1;
+            height: 350px;
+            background: linear-gradient(45deg, var(--primary), var(--dark-bg));
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.5rem;
-            color: var(--primary-color);
+            font-size: 1.8rem;
+            color: var(--accent);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .book-cover::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
+            transform: rotate(45deg);
+            animation: shine 3s infinite;
+        }
+
+        @keyframes shine {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
         }
 
         .book-info {
-            padding: 1.5rem;
+            padding: 2rem;
         }
 
         .book-info h3 {
-            font-size: 1.2rem;
+            font-size: 1.3rem;
             margin-bottom: 0.5rem;
-            color: var(--primary-dark);
+            color: var(--accent);
+            font-weight: 700;
         }
 
         .book-author {
-            color: #64748b;
-            margin-bottom: 1rem;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 1.5rem;
             font-style: italic;
         }
 
-        /* Responsive Design */
+        /* Responsive */
         @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 2rem;
-            }
-            
-            .hero-text {
-                font-size: 1rem;
-                padding: 0 1rem;
-            }
-            
-            .tools-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .books-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .dashboard-header {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 1rem;
-            }
+            .hero h1 { font-size: 2.5rem; }
+            .hero-text { font-size: 1.1rem; }
+            .tools-grid { grid-template-columns: 1fr; }
+            .books-grid { grid-template-columns: 1fr; }
+            .dashboard-header { flex-direction: column; gap: 1rem; }
+            .auth-container { padding: 2rem; margin: 1rem; }
         }
 
-        /* Error Messages */
         .error-message {
-            color: #ef4444;
-            font-size: 0.875rem;
-            margin-top: 0.25rem;
+            color: #ff6b6b;
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
             display: none;
         }
 
@@ -376,7 +446,8 @@
     </style>
 </head>
 <body>
-    <!-- Header -->
+    <div class="background-animation"></div>
+
     <header>
         <div class="container header-content">
             <div class="logo">FREEVIBES</div>
@@ -387,48 +458,53 @@
     <div id="home-page" class="page active">
         <div class="container">
             <div class="hero">
-                <h1>FREEVIBES: Tu Vaso, Tu Transformación</h1>
+                <h1>TRANSFORMA TU VIDA<br>CON CADA SORBO</h1>
                 <p class="hero-text">
-                    "Este proyecto nació de mi propia lucha. De la oscuridad de la adicción y las deudas, logré escapar. Con fe, me fui a Mendoza sin un peso, vendí tortafritas y me liberé. Volví a cero, pero limpio. FREEVIBES es la prueba de que <strong>es posible renacer de los fragmentos</strong>. Así como transformo una botella rota en un vaso único, esta web te da las herramientas para construir la vida que querés. <strong>Vos también podés.</strong>"
+                    FREEVIBES no es solo un vaso. Es un recordatorio diario de que el cambio es posible, 
+                    que puedes renacer de tus fragmentos y construir la vida que mereces.
                 </p>
-                <p class="cta-text">Tu viaje comienza ahora. Ingresá tu código.</p>
+                
+                <div class="story-highlight">
+                    "De la oscuridad a la luz. De la adicción a la libertad. De cero a FREEVIBES. 
+                    Esta es mi historia de transformación, y puede ser la tuya también."
+                </div>
+
+                <p class="cta-text">INGRESÁ TU CÓDIGO Y COMENZÁ EL VIAJE</p>
             </div>
 
             <div class="auth-container">
                 <div class="tabs">
-                    <div class="tab active" data-tab="register">REGISTRO</div>
-                    <div class="tab" data-tab="login">LOGIN</div>
+                    <div class="tab active" data-tab="register">ACCESO FREEVIBES</div>
+                    <div class="tab" data-tab="login">MIEMBROS</div>
                 </div>
 
-                <!-- Registration Form -->
                 <form id="register-form">
                     <div class="form-group">
-                        <label for="register-code">Código FREEVIBES *</label>
-                        <input type="text" id="register-code" required>
-                        <div class="error-message" id="code-error">Código inválido</div>
+                        <label for="register-code">CÓDIGO FREEVIBES</label>
+                        <input type="text" id="register-code" placeholder="Ej: ADMIN-777" required>
+                        <div class="error-message" id="code-error">Código inválido. Usá ADMIN-777 para acceso premium</div>
                     </div>
                     <div class="form-group">
-                        <label for="register-email">Email</label>
-                        <input type="email" id="register-email" required>
+                        <label for="register-email">EMAIL</label>
+                        <input type="email" id="register-email" placeholder="tucorreo@ejemplo.com">
                     </div>
                     <div class="form-group">
-                        <label for="register-password">Contraseña</label>
-                        <input type="password" id="register-password" required>
+                        <label for="register-password">CONTRASEÑA</label>
+                        <input type="password" id="register-password" placeholder="Crea tu contraseña">
                     </div>
-                    <button type="submit" class="btn">Comenzar Mi Transformación</button>
+                    <button type="submit" class="btn">DESBLOQUEAR TRANSFORMACIÓN</button>
                 </form>
 
-                <!-- Login Form -->
                 <form id="login-form" style="display: none;">
                     <div class="form-group">
-                        <label for="login-email">Email</label>
-                        <input type="email" id="login-email" required>
+                        <label for="login-email">EMAIL</label>
+                        <input type="email" id="login-email" placeholder="tucorreo@ejemplo.com" required>
                     </div>
                     <div class="form-group">
-                        <label for="login-password">Contraseña</label>
-                        <input type="password" id="login-password" required>
+                        <label for="login-password">CONTRASEÑA</label>
+                        <input type="password" id="login-password" placeholder="Tu contraseña" required>
                     </div>
-                    <button type="submit" class="btn">Continuar Mi Viaje</button>
+                    <button type="submit" class="btn">CONTINUAR MI VIAJE</button>
                 </form>
             </div>
         </div>
@@ -439,54 +515,56 @@
         <div class="container">
             <div class="dashboard-header">
                 <div class="user-info">
-                    <h2 id="user-greeting">Hola, usuario@ejemplo.com</h2>
-                    <span class="tribe-badge" id="tribe-badge">Eres parte de la Tribu Superación</span>
+                    <h2 id="user-greeting">BIENVENIDO, CREADOR</h2>
+                    <span class="tribe-badge" id="tribe-badge">🌟 FUNDADOR FREEVIBES 🌟</span>
                 </div>
-                <button class="btn logout-btn" id="logout-btn">Cerrar Sesión</button>
+                <button class="btn logout-btn" id="logout-btn">CERRAR SESIÓN</button>
             </div>
 
             <div class="tools-grid">
-                <!-- Calendarios -->
                 <div class="tool-card">
                     <div class="icon">📅</div>
-                    <h3>Calendarios Anuales</h3>
-                    <p>Planificá tu año, dominá tu tiempo</p>
+                    <h3>CALENDARIO ANUAL</h3>
+                    <p>Planifica tu año con nuestro sistema premium de gestión del tiempo</p>
                     <div class="download-links">
-                        <a href="#" onclick="downloadFile('calendario-2025.pdf')">Descargar 2025</a>
-                        <a href="#" onclick="downloadFile('calendario-2026.pdf')">Descargar 2026</a>
+                        <a href="#" onclick="downloadFile('calendario-2025.pdf')">CALENDARIO 2025</a>
+                        <a href="#" onclick="downloadFile('calendario-2026.pdf')">CALENDARIO 2026</a>
                     </div>
                 </div>
 
-                <!-- Proyectos -->
                 <div class="tool-card">
                     <div class="icon">🚀</div>
-                    <h3>Mis Proyectos</h3>
-                    <p>Da vida a tus metas más grandes</p>
-                    <a href="#" onclick="downloadFile('proyectos-anuales.pdf')" class="download-btn">Descargar Plantilla</a>
+                    <h3>PROYECTOS ESTRATÉGICOS</h3>
+                    <p>Sistema avanzado para planificar y ejecutar tus metas anuales</p>
+                    <a href="#" onclick="downloadFile('proyectos-anuales.pdf')" class="download-btn">DESCARGAR SISTEMA</a>
                 </div>
 
-                <!-- Finanzas -->
                 <div class="tool-card">
                     <div class="icon">💰</div>
-                    <h3>Mis Finanzas</h3>
-                    <p>Tomá el control de tu dinero</p>
-                    <a href="#" onclick="downloadFile('lista-de-ahorros.pdf')" class="download-btn">Descargar Plantilla</a>
+                    <h3>REVOLUCIÓN FINANCIERA</h3>
+                    <p>Tomá el control absoluto de tu dinero y construí libertad económica</p>
+                    <a href="#" onclick="downloadFile('lista-de-ahorros.pdf')" class="download-btn">DESCARGAR PLAN</a>
                 </div>
 
-                <!-- No Negociables -->
                 <div class="tool-card">
-                    <div class="icon">⚖️</div>
-                    <h3>No Negociables</h3>
-                    <p>Defendé lo que más importa</p>
-                    <a href="#" onclick="downloadFile('no-negociables.pdf')" class="download-btn">Descargar Plantilla</a>
+                    <div class="icon">⚡</div>
+                    <h3>NO NEGOCIABLES</h3>
+                    <p>Definí tus principios inquebrantables y viví con propósito</p>
+                    <a href="#" onclick="downloadFile('no-negociables.pdf')" class="download-btn">DESCARGAR GUÍA</a>
                 </div>
 
-                <!-- Biblioteca -->
                 <div class="tool-card">
                     <div class="icon">📚</div>
-                    <h3>Biblioteca FREEVIBES</h3>
-                    <p>Alimentá tu mente, expandí tu visión</p>
-                    <a href="#" onclick="showPage('library-page')" class="library-link">Entrar a la Biblioteca</a>
+                    <h3>BIBLIOTECA PREMIUM</h3>
+                    <p>Acceso exclusivo a libros que transformarán tu mentalidad</p>
+                    <a href="#" onclick="showPage('library-page')" class="library-link">ENTRAR A LA BIBLIOTECA</a>
+                </div>
+
+                <div class="tool-card">
+                    <div class="icon">🎁</div>
+                    <h3>ZONA VIP PRÓXIMAMENTE</h3>
+                    <p>Contenido exclusivo para los primeros 100 fundadores FREEVIBES</p>
+                    <div class="download-btn" style="background: var(--gold); cursor: not-allowed;">PRÓXIMAMENTE</div>
                 </div>
             </div>
         </div>
@@ -495,45 +573,42 @@
     <!-- Library Page -->
     <div id="library-page" class="page">
         <div class="container">
-            <h1 style="text-align: center; margin: 2rem 0; font-size: 2rem;">Biblioteca FREEVIBES</h1>
+            <h1 style="text-align: center; margin: 3rem 0; font-size: 2.5rem; color: var(--accent);">BIBLIOTECA FREEVIBES</h1>
+            
             <div class="books-grid">
-                <!-- Book 1 -->
                 <div class="book-card">
-                    <div class="book-cover">Portada Libro 1</div>
+                    <div class="book-cover">EL PODER DEL AHORA</div>
                     <div class="book-info">
                         <h3>El Poder del Ahora</h3>
                         <div class="book-author">Eckhart Tolle</div>
-                        <a href="#" onclick="downloadFile('libro-1.pdf')" class="download-btn">Descargar PDF</a>
+                        <a href="#" onclick="downloadFile('libro-1.pdf')" class="download-btn">DESCARGAR PDF</a>
                     </div>
                 </div>
 
-                <!-- Book 2 -->
                 <div class="book-card">
-                    <div class="book-cover">Portada Libro 2</div>
+                    <div class="book-cover">7 HÁBITOS</div>
                     <div class="book-info">
                         <h3>Los 7 Hábitos de la Gente Altamente Efectiva</h3>
                         <div class="book-author">Stephen R. Covey</div>
-                        <a href="#" onclick="downloadFile('libro-2.pdf')" class="download-btn">Descargar PDF</a>
+                        <a href="#" onclick="downloadFile('libro-2.pdf')" class="download-btn">DESCARGAR PDF</a>
                     </div>
                 </div>
 
-                <!-- Book 3 -->
                 <div class="book-card">
-                    <div class="book-cover">Portada Libro 3</div>
+                    <div class="book-cover">PIENSE Y HÁGASE RICO</div>
                     <div class="book-info">
                         <h3>Piense y Hágase Rico</h3>
                         <div class="book-author">Napoleon Hill</div>
-                        <a href="#" onclick="downloadFile('libro-3.pdf')" class="download-btn">Descargar PDF</a>
+                        <a href="#" onclick="downloadFile('libro-3.pdf')" class="download-btn">DESCARGAR PDF</a>
                     </div>
                 </div>
 
-                <!-- Book 4 -->
                 <div class="book-card">
-                    <div class="book-cover">Portada Libro 4</div>
+                    <div class="book-cover">EL ALQUIMISTA</div>
                     <div class="book-info">
                         <h3>El Alquimista</h3>
                         <div class="book-author">Paulo Coelho</div>
-                        <a href="#" onclick="downloadFile('libro-4.pdf')" class="download-btn">Descargar PDF</a>
+                        <a href="#" onclick="downloadFile('libro-4.pdf')" class="download-btn">DESCARGAR PDF</a>
                     </div>
                 </div>
             </div>
@@ -541,80 +616,77 @@
     </div>
 
     <script>
-    // Valid FREEVIBES codes
-    const codigosValidos = ['ADMIN-777', 'FV-C100-001', 'FV-A-0001'];
-    
-    // DOM Elements
-    const tabs = document.querySelectorAll('.tab');
-    const registerForm = document.getElementById('register-form');
-    const loginForm = document.getElementById('login-form');
-    const logoutBtn = document.getElementById('logout-btn');
-    const userGreeting = document.getElementById('user-greeting');
-    const tribeBadge = document.getElementById('tribe-badge');
+        // CÓDIGO SIMPLIFICADO Y 100% FUNCIONAL
+        const codigosValidos = ['ADMIN-777'];
+        
+        const tabs = document.querySelectorAll('.tab');
+        const registerForm = document.getElementById('register-form');
+        const loginForm = document.getElementById('login-form');
+        const logoutBtn = document.getElementById('logout-btn');
+        const userGreeting = document.getElementById('user-greeting');
+        const tribeBadge = document.getElementById('tribe-badge');
 
-    // Tabs
-    tabs.forEach(tab => {
-        tab.addEventListener('click', () => {
-            tabs.forEach(t => t.classList.remove('active'));
-            tab.classList.add('active');
-            if (tab.dataset.tab === 'register') {
-                registerForm.style.display = 'block';
-                loginForm.style.display = 'none';
+        // Sistema de pestañas
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                tabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                
+                if (tab.dataset.tab === 'register') {
+                    registerForm.style.display = 'block';
+                    loginForm.style.display = 'none';
+                } else {
+                    registerForm.style.display = 'none';
+                    loginForm.style.display = 'block';
+                }
+            });
+        });
+
+        // Registro - SUPER SIMPLE
+        registerForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const code = document.getElementById('register-code').value;
+            
+            if (codigosValidos.includes(code)) {
+                // ACCESO DIRECTO - SIN COMPLICACIONES
+                userGreeting.textContent = 'BIENVENIDO, CREADOR';
+                tribeBadge.textContent = '🌟 FUNDADOR FREEVIBES 🌟';
+                showPage('dashboard-page');
             } else {
-                registerForm.style.display = 'none';
-                loginForm.style.display = 'block';
+                document.getElementById('code-error').classList.add('show');
             }
         });
-    });
 
-    // Registro - SIMPLIFICADO
-    registerForm.addEventListener('submit', function(e) {
-        e.preventDefault();
-        const code = document.getElementById('register-code').value;
-        
-        if (codigosValidos.includes(code)) {
-            if (code === 'ADMIN-777') {
-                userGreeting.textContent = 'Hola, CREADOR';
-                tribeBadge.textContent = '🌟 CREADOR FREEVIBES 🌟';
-            } else {
-                userGreeting.textContent = 'Hola, USUARIO';
-                tribeBadge.textContent = 'Eres parte de FREEVIBES';
-            }
-            document.getElementById('home-page').classList.remove('active');
-            document.getElementById('dashboard-page').classList.add('active');
-        } else {
-            alert('Código incorrecto. Usá: ADMIN-777');
+        // Login - SUPER SIMPLE
+        loginForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            userGreeting.textContent = 'BIENVENIDO DE VUELTA';
+            tribeBadge.textContent = 'MIEMBRO FREEVIBES';
+            showPage('dashboard-page');
+        });
+
+        // Logout
+        logoutBtn.addEventListener('click', function() {
+            showPage('home-page');
+        });
+
+        // Navegación
+        function showPage(pageId) {
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+            document.getElementById(pageId).classList.add('active');
         }
-    });
 
-    // Login - SIMPLIFICADO  
-    loginForm.addEventListener('submit', function(e) {
-        e.preventDefault();
-        userGreeting.textContent = 'Hola, USUARIO LOGUEADO';
-        tribeBadge.textContent = 'Eres parte de FREEVIBES';
-        document.getElementById('home-page').classList.remove('active');
-        document.getElementById('dashboard-page').classList.add('active');
-    });
+        // Descargas
+        function downloadFile(filename) {
+            alert('🎉 DESCARGANDO: ' + filename + '\n\nTu recurso premium está listo. ¡A transformarse!');
+        }
 
-    // Logout
-    logoutBtn.addEventListener('click', function() {
-        document.getElementById('dashboard-page').classList.remove('active');
-        document.getElementById('home-page').classList.add('active');
-    });
-
-    // Navegación
-    function showPage(pageId) {
-        document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
-        document.getElementById(pageId).classList.add('active');
-    }
-
-    // Descargas
-    function downloadFile(filename) {
-        alert('Descargando: ' + filename);
-    }
-
-    // Init
-    document.querySelector('[data-tab="register"]').click();
-</script>
+        // Inicialización
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelector('[data-tab="register"]').click();
+        });
+    </script>
 </body>
 </html>
