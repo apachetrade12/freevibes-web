@@ -603,10 +603,22 @@ const codigosValidos = [
 });
 
         loginForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            const email = document.getElementById('login-email').value;
-            loginUser(email, 'FV-SUP-0001'); // Default code for login
-        });
+    e.preventDefault();
+    const email = document.getElementById('login-email').value;
+    const password = document.getElementById('login-password').value;
+    
+    // Verificar credenciales guardadas
+    const savedUser = localStorage.getItem('freevibes_user');
+    if (savedUser) {
+        const userData = JSON.parse(savedUser);
+        if (userData.email === email && userData.password === password) {
+            loginUser(email, userData.code);
+            return;
+        }
+    }
+    
+    alert('Email o contraseña incorrectos');
+});
 
         function loginUser(email, code) {
     // Determine tribe based on code - CON LLAVE MAESTRA ESPECIAL
@@ -653,8 +665,8 @@ const codigosValidos = [
 
         // Download function (simulated)
         function downloadFile(filename) {
-            alert(Descargando: ${filename}\nEn una implementación real, esto descargaría el archivo PDF.);
-        }
+    alert(Descargando: ${filename}\nEn una implementación real, esto descargaría el archivo PDF.);
+}
 
         // Initialize
         document.addEventListener('DOMContentLoaded', function() {
