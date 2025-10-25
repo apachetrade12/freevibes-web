@@ -671,6 +671,9 @@
     <script>
        // SISTEMA INTELIGENTE DE CÓDIGOS
 function validarCodigo(code) {
+    // LIMPIA EL CÓDIGO - ELIMINA ESPACIOS Y CARACTERES INVISIBLES
+    const codigoLimpio = code.trim().toUpperCase();
+    
     const patrones = [
         /^FV-C100-\d{3}$/,  // FV-C100-001 a FV-C100-100
         /^FV-F-\d{4}$/,     // FV-F-0001 a FV-F-1000  
@@ -679,8 +682,7 @@ function validarCodigo(code) {
         /^FV-S-\d{4}$/      // FV-S-0001 a FV-S-1000
     ];
     
-    const codigoMayusculas = code.toUpperCase();
-    return codigoMayusculas === 'ADMIN-777' || patrones.some(patron => patron.test(codigoMayusculas));
+    return codigoLimpio === 'ADMIN-777' || patrones.some(patron => patron.test(codigoLimpio));
 }
         
         const tabs = document.querySelectorAll('.tab');
