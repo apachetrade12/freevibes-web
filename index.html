@@ -708,20 +708,26 @@ function validarCodigo(code) {
             });
         });
 
-        // Registro - SUPER SIMPLE
-        registerForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            const code = document.getElementById('register-code').value.toUpperCase(); // ← AGREGAR .toUpperCase() AQUÍ
-            
-            if (validarCodigo(code))  {
-                // ACCESO DIRECTO - SIN COMPLICACIONES
-                userGreeting.textContent = 'BIENVENIDO, CREADOR';
-                tribeBadge.textContent = '🌟 FUNDADOR FREEVIBES 🌟';
-                showPage('dashboard-page');
-            } else {
-                document.getElementById('code-error').classList.add('show');
-            }
-        });
+        // Registro - CON CÓDIGOS ÚNICOS
+registerForm.addEventListener('submit', function(e) {
+    e.preventDefault();
+    const code = document.getElementById('register-code').value;
+    const email = document.getElementById('register-email').value;
+    
+    document.getElementById('code-error').classList.remove('show');
+    
+    if (validarYRegistrarCodigo(code)) {
+        // Marcar código como usado
+        marcarCodigoComoUtilizado(code, email);
+        
+        // ACCESO CONFIRMADO (tu código original)
+        userGreeting.textContent = 'BIENVENIDO, CREADOR';
+        tribeBadge.textContent = '🌟 FUNDADOR FREEVIBES 🌟';
+        showPage('dashboard-page');
+    } else {
+        document.getElementById('code-error').classList.add('show');
+    }
+});
 
         // Login - SUPER SIMPLE
         loginForm.addEventListener('submit', function(e) {
@@ -772,10 +778,52 @@ function validarCodigo(code) {
             }
         }
 
-        // Inicialización
-        document.addEventListener('DOMContentLoaded', function() {
-            document.querySelector('[data-tab="register"]').click();
-        });
+        // =============================================
+// SISTEMA DE CÓDIGOS ÚNICOS FREEVIBES
+// =============================================
+const codigosUtilizados = JSON.parse(localStorage.getItem('freevibes_codes')) || {};
+
+function validarYRegistrarCodigo(code) {
+    const codigoLimpio = code.trim().toUpperCase();
+    
+    // Verificar si ya fue usado
+    if (codigosUtilizados[codigoLimpio]) {
+        document.getElementById('code-error').textContent = '⚠️ Este código ya fue utilizado por otro usuario';
+        return false;
+    }
+    
+    return validarCodigo(code); // Usa tu función original
+}
+
+function marcarCodigoComoUtilizado(code, email) {
+    const codigoLimpio = code.trim().toUpperCase();
+    codigosUtilizados[codigoLimpio] = {
+        fecha: new Date().toLocaleString(),
+        usuario: email || 'Anónimo'
+    };
+    localStorage.setItem('freevibes_codes', JSON.stringify(codigosUtilizados));
+}
+
+// =============================================
+// DETECCIÓN AUTOMÁTICA DE QR
+// =============================================
+function procesarCodigoDesdeURL() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const codigoQR = urlParams.get('codigo');
+    
+    if (codigoQR) {
+        document.getElementById('register-code').value = codigoQR;
+        document.querySelector('[data-tab="register"]').click();
+    }
+}
+
+// =============================================
+// INICIALIZACIÓN
+// =============================================
+document.addEventListener('DOMContentLoaded', function() {
+    document.querySelector('[data-tab="register"]').click();
+    procesarCodigoDesdeURL();
+});
     </script>
 </body>
 </html>
