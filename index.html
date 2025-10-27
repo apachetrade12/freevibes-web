@@ -812,8 +812,16 @@ function procesarCodigoDesdeURL() {
     const codigoQR = urlParams.get('codigo');
     
     if (codigoQR) {
+        // SOLO autocompleta el código, NO hace click en la pestaña
         document.getElementById('register-code').value = codigoQR;
-        document.querySelector('[data-tab="register"]').click();
+        
+        // Opcional: mostrar mensaje que detectó el código
+        setTimeout(() => {
+            const errorDiv = document.getElementById('code-error');
+            errorDiv.textContent = '✅ Código QR detectado. Completa email y contraseña.';
+            errorDiv.style.color = '#00d4aa';
+            errorDiv.classList.add('show');
+        }, 500);
     }
 }
 
