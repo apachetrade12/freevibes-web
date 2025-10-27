@@ -772,10 +772,37 @@ function validarCodigo(code) {
             }
         }
 
-        // Inicialización
-        document.addEventListener('DOMContentLoaded', function() {
-            document.querySelector('[data-tab="register"]').click();
-        });
+        // =============================================
+// DETECCIÓN AUTOMÁTICA DE CÓDIGOS QR DESDE URL
+// =============================================
+
+function procesarCodigoDesdeURL() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const codigoQR = urlParams.get('codigo');
+    
+    if (codigoQR && validarCodigo(codigoQR)) {
+        // Autocompletar el campo y hacer submit automático
+        document.getElementById('register-code').value = codigoQR;
+        
+        // Mostrar mensaje de bienvenida
+        userGreeting.textContent = 'BIENVENIDO POR QR, CREADOR';
+        tribeBadge.textContent = '🌟 FUNDADOR FREEVIBES 🌟';
+        
+        // Redirigir directamente al dashboard
+        showPage('dashboard-page');
+        
+        // Opcional: mostrar notificación
+        setTimeout(() => {
+            alert('🎉 ¡ACCESO POR QR EXITOSO!\nCódigo: ' + codigoQR);
+        }, 500);
+    }
+}
+
+// Ejecutar al cargar la página
+document.addEventListener('DOMContentLoaded', function() {
+    document.querySelector('[data-tab="register"]').click();
+    procesarCodigoDesdeURL(); // ← AGREGAR ESTA LÍNEA
+});
     </script>
 </body>
 </html>
