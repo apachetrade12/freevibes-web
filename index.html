@@ -669,9 +669,10 @@
                     }
         }
     <script>
-       // SISTEMA INTELIGENTE DE CÓDIGOS
+       // SISTEMA DE CÓDIGOS ÚNICOS FREEVIBES
+const codigosUtilizados = JSON.parse(localStorage.getItem('freevibes_codes')) || {};
+
 function validarCodigo(code) {
-    // LIMPIA EL CÓDIGO - ELIMINA ESPACIOS Y CARACTERES INVISIBLES
     const codigoLimpio = code.trim().toUpperCase();
     
     const patrones = [
@@ -682,126 +683,155 @@ function validarCodigo(code) {
         /^FV-S-\d{4}$/      // FV-S-0001 a FV-S-1000
     ];
     
-    return codigoLimpio === 'ADMIN-777' || patrones.some(patron => patron.test(codigoLimpio));
+    // Verificar formato
+    const formatoValido = codigoLimpio === 'ADMIN-777' || 
+                        patrones.some(patron => patron.test(codigoLimpio));
+    
+    if (!formatoValido) return false;
+    
+    // Verificar si ya fue usado
+    if (codigosUtilizados[codigoLimpio]) {
+        document.getElementById('code-error').textContent = '⚠️ Este código ya fue utilizado';
+        return false;
+    }
+    
+    return true;
 }
+
+function marcarCodigoComoUtilizado(code) {
+    const codigoLimpio = code.trim().toUpperCase();
+    codigosUtilizados[codigoLimpio] = {
+        fecha: new Date().toLocaleString(),
+        usuario: document.getElementById('register-email').value || 'Anónimo'
+    };
+    localStorage.setItem('freevibes_codes', JSON.stringify(codigosUtilizados));
+}
+
+const tabs = document.querySelectorAll('.tab');
+const registerForm = document.getElementById('register-form');
+const loginForm = document.getElementById('login-form');
+const logoutBtn = document.getElementById('logout-btn');
+const userGreeting = document.getElementById('user-greeting');
+const tribeBadge = document.getElementById('tribe-badge');
+
+// Sistema de pestañas
+tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+        tabs.forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
         
-        const tabs = document.querySelectorAll('.tab');
-        const registerForm = document.getElementById('register-form');
-        const loginForm = document.getElementById('login-form');
-        const logoutBtn = document.getElementById('logout-btn');
-        const userGreeting = document.getElementById('user-greeting');
-        const tribeBadge = document.getElementById('tribe-badge');
-
-        // Sistema de pestañas
-        tabs.forEach(tab => {
-            tab.addEventListener('click', () => {
-                tabs.forEach(t => t.classList.remove('active'));
-                tab.classList.add('active');
-                
-                if (tab.dataset.tab === 'register') {
-                    registerForm.style.display = 'block';
-                    loginForm.style.display = 'none';
-                } else {
-                    registerForm.style.display = 'none';
-                    loginForm.style.display = 'block';
-                }
-            });
-        });
-
-        // Registro - SUPER SIMPLE
-        registerForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            const code = document.getElementById('register-code').value.toUpperCase(); // ← AGREGAR .toUpperCase() AQUÍ
-            
-            if (validarCodigo(code))  {
-                // ACCESO DIRECTO - SIN COMPLICACIONES
-                userGreeting.textContent = 'BIENVENIDO, CREADOR';
-                tribeBadge.textContent = '🌟 FUNDADOR FREEVIBES 🌟';
-                showPage('dashboard-page');
-            } else {
-                document.getElementById('code-error').classList.add('show');
-            }
-        });
-
-        // Login - SUPER SIMPLE
-        loginForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            userGreeting.textContent = 'BIENVENIDO DE VUELTA';
-            tribeBadge.textContent = 'MIEMBRO FREEVIBES';
-            showPage('dashboard-page');
-        });
-
-        // Logout
-        logoutBtn.addEventListener('click', function() {
-            showPage('home-page');
-        });
-
-        // Navegación
-        function showPage(pageId) {
-            document.querySelectorAll('.page').forEach(page => {
-                page.classList.remove('active');
-            });
-            document.getElementById(pageId).classList.add('active');
+        if (tab.dataset.tab === 'register') {
+            registerForm.style.display = 'block';
+            loginForm.style.display = 'none';
+        } else {
+            registerForm.style.display = 'none';
+            loginForm.style.display = 'block';
         }
+    });
+});
 
-        // Descargas
-        function downloadFile(filename) {
-            const fileLinks = {
-                // PLANTILLAS
-                'proyectos-anuales.pdf': 'https://drive.google.com/uc?export=download&id=1ZNvkmrjW2WZM4h_93kR71UO1XwnIq9jI',
-                'lista-de-ahorros.pdf': 'https://drive.google.com/uc?export=download&id=1VFEXxmDW46v-7PCvhTu6Tc8RePpCZiTN',
-                'no-negociables.pdf': 'https://drive.google.com/uc?export=download&id=1b8UfNcL6hYgJtsQTAq4ROfL8CLopWMK6',
-                'calendario-2025.pdf': 'https://drive.google.com/uc?export=download&id=1TIP44mALvoOHclYR7lA1ytalgTxZvsIa',
-                'calendario-2026.pdf': 'https://drive.google.com/uc?export=download&id=1zMffqjYuYg_LFoq8qIPaDOzi6X3NOc4n',
-                
-                // BIBLIOTECA
-                'libro-1.pdf': 'https://drive.google.com/uc?export=download&id=1083uugR4KipanKNwxOkUK8wxfDyyNxvL',
-                'libro-2.pdf': 'https://drive.google.com/uc?export=download&id=1IkYKcjBhEXHrAy6mZv1y-itqgLZ8gs6H',
-                'libro-3.pdf': 'https://drive.google.com/uc?export=download&id=1Un5ikkErnN0Uw_a9M6Otl22XDvphDaxQ',
-                'libro-4.pdf': 'https://drive.google.com/uc?export=download&id=1W05jK7RkIlbEo9ghzmiJlwkTKacG6en7',
-                'libro-5.pdf': 'https://drive.google.com/uc?export=download&id=1GfNBNI8ndtlojY46ZdUVdBNSdPqlk7_L',
-                'libro-6.pdf': 'https://drive.google.com/uc?export=download&id=1z82ZCKgBoTx0zvz2j6_0tmvrpqbL7Wnu',
-                'libro-7.pdf': 'https://drive.google.com/uc?export=download&id=15CFApuOnCWGD39qz8vTrLLTv6dCH62tv',
-                'libro-8.pdf': 'https://drive.google.com/uc?export=download&id=1-FgfM50u5I4ZFxbrAFf_l1HdRmQxmE'
-            };
-            
-            if (fileLinks[filename]) {
-                window.open(fileLinks[filename], '_blank');
-            } else {
-                alert('🎉 DESCARGANDO: ' + filename + '\n\n(Próximamente disponible)');
-            }
-        }
+// Registro - CON CÓDIGOS ÚNICOS
+registerForm.addEventListener('submit', function(e) {
+    e.preventDefault();
+    const code = document.getElementById('register-code').value.toUpperCase();
+    const email = document.getElementById('register-email').value;
+    
+    if (validarCodigo(code))  {
+        // Marcar código como usado
+        marcarCodigoComoUtilizado(code);
+        
+        // ACCESO CONFIRMADO
+        userGreeting.textContent = BIENVENIDO, ${email ? email.split('@')[0].toUpperCase() : 'CREADOR'};
+        tribeBadge.textContent = '🌟 FUNDADOR FREEVIBES 🌟';
+        showPage('dashboard-page');
+        
+        // Mostrar código usado
+        setTimeout(() => {
+            alert(🎉 ¡BIENVENIDO A FREEVIBES!\n\nCódigo: ${code}\nEmail: ${email || 'Registrado sin email'}\n\n✅ Este código ya no podrá ser usado por otra persona);
+        }, 1000);
+    } else {
+        document.getElementById('code-error').classList.add('show');
+    }
+});
 
-        // =============================================
-// DETECCIÓN AUTOMÁTICA DE CÓDIGOS QR DESDE URL
+// Login - SUPER SIMPLE
+loginForm.addEventListener('submit', function(e) {
+    e.preventDefault();
+    userGreeting.textContent = 'BIENVENIDO DE VUELTA';
+    tribeBadge.textContent = 'MIEMBRO FREEVIBES';
+    showPage('dashboard-page');
+});
+
+// Logout
+logoutBtn.addEventListener('click', function() {
+    showPage('home-page');
+});
+
+// Navegación
+function showPage(pageId) {
+    document.querySelectorAll('.page').forEach(page => {
+        page.classList.remove('active');
+    });
+    document.getElementById(pageId).classList.add('active');
+}
+
+// =============================================
+// DETECCIÓN AUTOMÁTICA DE QR - MEJORADA
 // =============================================
 
 function procesarCodigoDesdeURL() {
     const urlParams = new URLSearchParams(window.location.search);
     const codigoQR = urlParams.get('codigo');
     
-    if (codigoQR && validarCodigo(codigoQR)) {
-        // Autocompletar el campo y hacer submit automático
+    if (codigoQR) {
+        // Solo autocompletar, NO redirigir automáticamente
         document.getElementById('register-code').value = codigoQR;
         
-        // Mostrar mensaje de bienvenida
-        userGreeting.textContent = 'BIENVENIDO POR QR, CREADOR';
-        tribeBadge.textContent = '🌟 FUNDADOR FREEVIBES 🌟';
+        // Mostrar en pestaña de registro
+        document.querySelector('[data-tab="register"]').click();
         
-        // Redirigir directamente al dashboard
-        showPage('dashboard-page');
-        
-        // Opcional: mostrar notificación
+        // Mostrar mensaje informativo
         setTimeout(() => {
-            alert('🎉 ¡ACCESO POR QR EXITOSO!\nCódigo: ' + codigoQR);
+            const errorDiv = document.getElementById('code-error');
+            errorDiv.textContent = '✅ Código QR detectado. Completa tu registro para activarlo.';
+            errorDiv.style.color = '#00d4aa';
+            errorDiv.classList.add('show');
         }, 500);
     }
 }
 
-// Ejecutar al cargar la página
+// Descargas
+function downloadFile(filename) {
+    const fileLinks = {
+        // PLANTILLAS
+        'proyectos-anuales.pdf': 'https://drive.google.com/uc?export=download&id=1ZNvkmrjW2WZM4h_93kR71UO1XwnIq9jI',
+        'lista-de-ahorros.pdf': 'https://drive.google.com/uc?export=download&id=1VFEXxmDW46v-7PCvhTu6Tc8RePpCZiTN',
+        'no-negociables.pdf': 'https://drive.google.com/uc?export=download&id=1b8UfNcL6hYgJtsQTAq4ROfL8CLopWMK6',
+        'calendario-2025.pdf': 'https://drive.google.com/uc?export=download&id=1TIP44mALvoOHclYR7lA1ytalgTxZvsIa',
+        'calendario-2026.pdf': 'https://drive.google.com/uc?export=download&id=1zMffqjYuYg_LFoq8qIPaDOzi6X3NOc4n',
+        
+        // BIBLIOTECA
+        'libro-1.pdf': 'https://drive.google.com/uc?export=download&id=1083uugR4KipanKNwxOkUK8wxfDyyNxvL',
+        'libro-2.pdf': 'https://drive.google.com/uc?export=download&id=1IkYKcjBhEXHrAy6mZv1y-itqgLZ8gs6H',
+        'libro-3.pdf': 'https://drive.google.com/uc?export=download&id=1Un5ikkErnN0Uw_a9M6Otl22XDvphDaxQ',
+        'libro-4.pdf': 'https://drive.google.com/uc?export=download&id=1W05jK7RkIlbEo9ghzmiJlwkTKacG6en7',
+        'libro-5.pdf': 'https://drive.google.com/uc?export=download&id=1GfNBNI8ndtlojY46ZdUVdBNSdPqlk7_L',
+        'libro-6.pdf': 'https://drive.google.com/uc?export=download&id=1z82ZCKgBoTx0zvz2j6_0tmvrpqbL7Wnu',
+        'libro-7.pdf': 'https://drive.google.com/uc?export=download&id=15CFApuOnCWGD39qz8vTrLLTv6dCH62tv',
+        'libro-8.pdf': 'https://drive.google.com/uc?export=download&id=1-FgfM50u5I4ZFxbrAFf_l1HdRmQxmE'
+    };
+    
+    if (fileLinks[filename]) {
+        window.open(fileLinks[filename], '_blank');
+    } else {
+        alert('🎉 DESCARGANDO: ' + filename + '\n\n(Próximamente disponible)');
+    }
+}
+
+// Inicialización
 document.addEventListener('DOMContentLoaded', function() {
     document.querySelector('[data-tab="register"]').click();
-    procesarCodigoDesdeURL(); // ← AGREGAR ESTA LÍNEA
+    procesarCodigoDesdeURL();
 });
     </script>
 </body>
